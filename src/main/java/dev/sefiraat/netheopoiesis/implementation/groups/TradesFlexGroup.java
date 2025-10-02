@@ -5,12 +5,12 @@ import dev.sefiraat.netheopoiesis.api.plant.netheos.Trade;
 import dev.sefiraat.netheopoiesis.implementation.Groups;
 import dev.sefiraat.netheopoiesis.utils.StatisticUtils;
 import dev.sefiraat.netheopoiesis.utils.Theme;
+import dev.sefiraat.netheopoiesis.utils.item.ItemCreator;
 import io.github.thebusybiscuit.slimefun4.api.items.groups.FlexItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.player.PlayerProfile;
 import io.github.thebusybiscuit.slimefun4.core.guide.SlimefunGuide;
 import io.github.thebusybiscuit.slimefun4.core.guide.SlimefunGuideMode;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
-import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ChestMenu;
 import org.bukkit.Material;
@@ -36,10 +36,10 @@ public class TradesFlexGroup extends FlexItemGroup {
     private static final int PAGE_NEXT = 52;
 
     private static final int[] HEADER = new int[]{
-        0, 1, 2, 3, 4, 5, 6, 7, 8
+            0, 1, 2, 3, 4, 5, 6, 7, 8
     };
     private static final int[] FOOTER = new int[]{
-        45, 46, 47, 48, 49, 50, 51, 52, 53
+            45, 46, 47, 48, 49, 50, 51, 52, 53
     };
 
     private static final int TRADE_ITEM_SLOT = 30;
@@ -50,28 +50,28 @@ public class TradesFlexGroup extends FlexItemGroup {
 
     private static final int[] HELD_SLOTS = new int[]{19, 28, 37, 25, 34, 43};
 
-    private static final ItemStack TRADE_ITEM_INFO = CustomItemStack.create(
-        Material.LIGHT_BLUE_STAINED_GLASS_PANE,
-        Theme.PASSIVE + "The Item Given to the Trader"
+    private static final ItemStack TRADE_ITEM_INFO = ItemCreator.create(
+            Material.LIGHT_BLUE_STAINED_GLASS_PANE,
+            Theme.PASSIVE + "The Item Given to the Trader"
     );
 
-    private static final ItemStack DROPPED_ITEM_INFO = CustomItemStack.create(
-        Material.LIGHT_BLUE_STAINED_GLASS_PANE,
-        Theme.PASSIVE + "The Item you receive"
+    private static final ItemStack DROPPED_ITEM_INFO = ItemCreator.create(
+            Material.LIGHT_BLUE_STAINED_GLASS_PANE,
+            Theme.PASSIVE + "The Item you receive"
     );
 
-    private static final ItemStack HELD_SLOT = CustomItemStack.create(
-        Material.BLACK_STAINED_GLASS_PANE,
-        " "
+    private static final ItemStack HELD_SLOT = ItemCreator.create(
+            Material.BLACK_STAINED_GLASS_PANE,
+            " "
     );
 
     private static final ItemStack NOT_FOUND = Theme.themedItemStack(
-        Material.BARRIER,
-        Theme.DISCOVEREY,
-        "Trade not found",
-        Theme.ERROR + "Not Discovered",
-        "You have not yet discovered how",
-        "to breed this plant!"
+            Material.BARRIER,
+            Theme.DISCOVEREY,
+            "Trade not found",
+            Theme.ERROR + "Not Discovered",
+            "You have not yet discovered how",
+            "to breed this plant!"
     );
 
     public TradesFlexGroup(NamespacedKey key, ItemStack item) {
@@ -115,11 +115,11 @@ public class TradesFlexGroup extends FlexItemGroup {
 
         // Back
         menu.replaceExistingItem(
-            GUIDE_BACK,
-            ChestMenuUtils.getBackButton(
-                player,
-                Slimefun.getLocalization().getMessage("guide.back.guide")
-            )
+                GUIDE_BACK,
+                ChestMenuUtils.getBackButton(
+                        player,
+                        Slimefun.getLocalization().getMessage("guide.back.guide")
+                )
         );
         menu.addMenuClickHandler(GUIDE_BACK, (player1, slot, itemStack, clickAction) -> {
             SlimefunGuide.openItemGroup(profile, Groups.MAIN, mode, 1);
@@ -161,11 +161,11 @@ public class TradesFlexGroup extends FlexItemGroup {
     ) {
         // Back Button
         menu.replaceExistingItem(
-            GUIDE_BACK,
-            ChestMenuUtils.getBackButton(
-                p,
-                Slimefun.getLocalization().getMessage("guide.back.guide")
-            )
+                GUIDE_BACK,
+                ChestMenuUtils.getBackButton(
+                        p,
+                        Slimefun.getLocalization().getMessage("guide.back.guide")
+                )
         );
         menu.addMenuClickHandler(GUIDE_BACK, (player1, slot, itemStack, clickAction) -> {
             setupPage(player1, profile, mode, menu, returnPage);

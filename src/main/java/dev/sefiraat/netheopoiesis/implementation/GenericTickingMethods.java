@@ -30,34 +30,34 @@ import java.util.concurrent.ThreadLocalRandom;
 public final class GenericTickingMethods {
 
     private static final Set<String> WALSHY_MESSAGES = Set.of(
-        ":NotLikeThis:",
-        ":LuL:",
-        ":PepeHands:",
-        "This is why we can't have nice things...",
-        "arrrrgggghhhhhhhhh",
-        "reeeeeeeeee",
-        "**screams into muted mic**",
-        "Oh god, what even is this...",
-        "Have you heard about our lord and saviour, Cloudflare?",
-        "SlimeFun....",
-        "zzz... Workers....  workers..... workers... zzz...",
-        "zzz... Pages....  Pages..... Pages... zzz..."
+            ":NotLikeThis:",
+            ":LuL:",
+            ":PepeHands:",
+            "This is why we can't have nice things...",
+            "arrrrgggghhhhhhhhh",
+            "reeeeeeeeee",
+            "**screams into muted mic**",
+            "Oh god, what even is this...",
+            "Have you heard about our lord and saviour, Cloudflare?",
+            "SlimeFun....",
+            "zzz... Workers....  workers..... workers... zzz...",
+            "zzz... Pages....  Pages..... Pages... zzz..."
     );
 
     private static final Set<String> ALESSIO_MESSAGES = Set.of(
-        "beepboop",
-        "*whips out MSPaint*",
-        "(\uD835\uDC4E + \uD835\uDC4F)" +
-            "\uD835\uDC5B = ∑(" +
-            "\uD835\uDC5B" +
-            "\uD835\uDC58" +
-            ") \uD835\uDC4E" +
-            "\uD835\uDC58\uD835\uDC4F" +
-            "\uD835\uDC5B",
-        "World Gen!!!!1!!!",
-        "1 + 1 = 3... Me Smort",
-        "Hawaiian Pizza is the best, yummy yummy in my tummy.",
-        "Teaching Sefi how to make a sphere.... *internally screaming*"
+            "beepboop",
+            "*whips out MSPaint*",
+            "(\uD835\uDC4E + \uD835\uDC4F)" +
+                    "\uD835\uDC5B = ∑(" +
+                    "\uD835\uDC5B" +
+                    "\uD835\uDC58" +
+                    ") \uD835\uDC4E" +
+                    "\uD835\uDC58\uD835\uDC4F" +
+                    "\uD835\uDC5B",
+            "World Gen!!!!1!!!",
+            "1 + 1 = 3... Me Smort",
+            "Hawaiian Pizza is the best, yummy yummy in my tummy.",
+            "Teaching Sefi how to make a sphere.... *internally screaming*"
     );
 
     private GenericTickingMethods() {
@@ -67,7 +67,7 @@ public final class GenericTickingMethods {
     public static void onTickSpindleSeed(@Nonnull TickParameters params) {
         double randomChance = ThreadLocalRandom.current().nextDouble();
         if (randomChance <= 0.05) {
-            final Block block = WorldUtils.randomLocation(params.getLocation(), 3, 2, 2).getBlock();
+            final Block block = WorldUtils.randomLocation(params.location(), 3, 2, 2).getBlock();
 
             // the first block we spawn on needs to be AIR
             if (block.getType() != Material.AIR) {
@@ -79,7 +79,7 @@ public final class GenericTickingMethods {
 
             // And the block below must be a valid crux
             if (possibleCrux instanceof NetherCrux crux
-                && params.getSeed().getPlacements().contains(crux.getId())
+                    && params.seed().getPlacements().contains(crux.getId())
             ) {
                 block.setType(Material.OAK_LOG);
             }
@@ -89,7 +89,7 @@ public final class GenericTickingMethods {
     public static void onTickSweetSeed(@Nonnull TickParameters params) {
         double randomChance = ThreadLocalRandom.current().nextDouble();
         if (randomChance <= 0.1) {
-            final Block block = WorldUtils.randomLocation(params.getLocation(), 3, 2, 2).getBlock();
+            final Block block = WorldUtils.randomLocation(params.location(), 3, 2, 2).getBlock();
 
             // the first block we spawn on needs to be AIR and Biome DESERT
             if (block.getType() != Material.AIR) {
@@ -101,8 +101,8 @@ public final class GenericTickingMethods {
 
             // And the block below must be a valid crux
             if (blockBelow.getType() == Material.SAND
-                && possibleCrux instanceof NetherCrux crux
-                && params.getSeed().getPlacements().contains(crux.getId())
+                    && possibleCrux instanceof NetherCrux crux
+                    && params.seed().getPlacements().contains(crux.getId())
             ) {
                 block.setType(Material.SUGAR_CANE);
             }
@@ -112,7 +112,7 @@ public final class GenericTickingMethods {
     public static void onTickSpineySeed(@Nonnull TickParameters params) {
         double randomChance = ThreadLocalRandom.current().nextDouble();
         if (randomChance <= 0.1) {
-            final Block block = WorldUtils.randomLocation(params.getLocation(), 3, 2, 2).getBlock();
+            final Block block = WorldUtils.randomLocation(params.location(), 3, 2, 2).getBlock();
 
             // the first block we spawn on needs to be AIR and Biome DESERT
             if (block.getType() != Material.AIR && block.getBiome() == Biome.DESERT) {
@@ -124,7 +124,7 @@ public final class GenericTickingMethods {
 
             // And the block below must be a valid crux
             if (possibleCrux instanceof NetherCrux crux
-                && params.getSeed().getPlacements().contains(crux.getId())
+                    && params.seed().getPlacements().contains(crux.getId())
             ) {
                 block.setType(Material.CACTUS);
             }
@@ -134,7 +134,7 @@ public final class GenericTickingMethods {
     public static void onTickOakendranSeed(@Nonnull TickParameters params) {
         double randomChance = ThreadLocalRandom.current().nextDouble();
         if (randomChance <= 0.5) {
-            final Block block = WorldUtils.randomLocation(params.getLocation(), 3, 2, 2).getBlock();
+            final Block block = WorldUtils.randomLocation(params.location(), 3, 2, 2).getBlock();
 
             // the first block we spawn on needs to be AIR
             if (block.getType() != Material.AIR) {
@@ -146,7 +146,7 @@ public final class GenericTickingMethods {
 
             // And the block below must be a valid crux
             if (possibleCrux instanceof NetherCrux crux
-                && params.getSeed().getPlacements().contains(crux.getId())
+                    && params.seed().getPlacements().contains(crux.getId())
             ) {
                 block.getWorld().generateTree(block.getLocation(), TreeType.TREE);
             }
@@ -156,7 +156,7 @@ public final class GenericTickingMethods {
     public static void onTickHateFilledSeed(@Nonnull TickParameters params) {
         double randomChance = ThreadLocalRandom.current().nextDouble();
         if (randomChance <= 0.05) {
-            final Location location = WorldUtils.randomLocation(params.getLocation(), 3, 2, 2);
+            final Location location = WorldUtils.randomLocation(params.location(), 3, 2, 2);
             location.getWorld().createExplosion(location, 2F, true, false);
         }
     }
@@ -166,11 +166,11 @@ public final class GenericTickingMethods {
     }
 
     public static void onWalshyIsMad(@Nonnull TickParameters params) {
-        tryBroadcastRandomMessage(params.getLocation(), Theme.ERROR, WALSHY_MESSAGES);
+        tryBroadcastRandomMessage(params.location(), Theme.ERROR, WALSHY_MESSAGES);
     }
 
     public static void onAlessioTeach(@Nonnull TickParameters params) {
-        tryBroadcastRandomMessage(params.getLocation(), Theme.SUCCESS, ALESSIO_MESSAGES);
+        tryBroadcastRandomMessage(params.location(), Theme.SUCCESS, ALESSIO_MESSAGES);
     }
 
     @ParametersAreNonnullByDefault
@@ -184,9 +184,9 @@ public final class GenericTickingMethods {
         final World world = location.getWorld();
         final Collection<Entity> entities = world.getNearbyEntities(location, 10, 10, 10);
         final String message = set.stream()
-                                  .skip(ThreadLocalRandom.current().nextInt(set.size()))
-                                  .findFirst()
-                                  .orElse("");
+                .skip(ThreadLocalRandom.current().nextInt(set.size()))
+                .findFirst()
+                .orElse("");
 
         for (Entity entity : entities) {
             if (entity instanceof Player player) {
@@ -195,28 +195,14 @@ public final class GenericTickingMethods {
         }
     }
 
-    public static class TickParameters {
-        private final Location location;
-        private final NetherSeed seed;
-        private final Config data;
-
+    public record TickParameters(Location location, NetherSeed seed, Config data) {
         @ParametersAreNonnullByDefault
-        public TickParameters(Location location, NetherSeed seed, Config data) {
-            this.location = location;
-            this.seed = seed;
-            this.data = data;
+        public TickParameters {
         }
 
-        public Location getLocation() {
-            return location.clone();
+            @Override
+            public Location location() {
+                return location.clone();
+            }
         }
-
-        public NetherSeed getSeed() {
-            return seed;
-        }
-
-        public Config getData() {
-            return data;
-        }
-    }
 }

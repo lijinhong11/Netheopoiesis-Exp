@@ -26,9 +26,9 @@ public class WanderingPiglinListener implements Listener {
     @EventHandler
     public void onPlayerDropItem(@Nonnull PlayerDropItemEvent event) {
         PersistentDataAPI.setString(
-            event.getItemDrop(),
-            Keys.DROPPED_PLAYER,
-            event.getPlayer().getUniqueId().toString()
+                event.getItemDrop(),
+                Keys.DROPPED_PLAYER,
+                event.getPlayer().getUniqueId().toString()
         );
     }
 }

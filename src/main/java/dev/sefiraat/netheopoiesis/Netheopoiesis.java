@@ -2,12 +2,7 @@ package dev.sefiraat.netheopoiesis;
 
 import dev.sefiraat.netheopoiesis.api.plant.netheos.NetheoBalls;
 import dev.sefiraat.netheopoiesis.implementation.Items;
-import dev.sefiraat.netheopoiesis.managers.ConfigManager;
-import dev.sefiraat.netheopoiesis.managers.DispatchManager;
-import dev.sefiraat.netheopoiesis.managers.ListenerManager;
-import dev.sefiraat.netheopoiesis.managers.MobManager;
-import dev.sefiraat.netheopoiesis.managers.SupportedPluginManager;
-import dev.sefiraat.netheopoiesis.managers.TaskManager;
+import dev.sefiraat.netheopoiesis.managers.*;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.updater.GitHubBuildsUpdater;
 import org.bstats.bukkit.Metrics;
@@ -43,6 +38,55 @@ public class Netheopoiesis extends JavaPlugin implements SlimefunAddon {
         this.username = "Sefiraat";
         this.repo = "Netheopoiesis";
         this.branch = "master";
+    }
+
+    public static Netheopoiesis getInstance() {
+        return Netheopoiesis.instance;
+    }
+
+    public static void logError(@Nonnull String string) {
+        instance.getLogger().severe(string);
+    }
+
+    public static void logWarning(@Nonnull String string) {
+        instance.getLogger().warning(string);
+    }
+
+    public static void logInfo(@Nonnull String string) {
+        instance.getLogger().info(string);
+    }
+
+    @Nonnull
+    public static PluginManager getPluginManager() {
+        return Netheopoiesis.getInstance().getServer().getPluginManager();
+    }
+
+    public static ConfigManager getConfigManager() {
+        return Netheopoiesis.getInstance().configManager;
+    }
+
+    public static SupportedPluginManager getSupportedPluginManager() {
+        return Netheopoiesis.getInstance().supportedPluginManager;
+    }
+
+    public static ListenerManager getListenerManager() {
+        return Netheopoiesis.getInstance().listenerManager;
+    }
+
+    public static TaskManager getRunnableManager() {
+        return Netheopoiesis.getInstance().taskManager;
+    }
+
+    public static MobManager getMobManager() {
+        return Netheopoiesis.getInstance().mobManager;
+    }
+
+    public static Purification getPurificationMemory() {
+        return Netheopoiesis.getInstance().purification;
+    }
+
+    public static Registry getPlantRegistry() {
+        return Netheopoiesis.getInstance().registry;
     }
 
     @Override
@@ -99,54 +143,5 @@ public class Netheopoiesis extends JavaPlugin implements SlimefunAddon {
 
     private void setupStats() {
         Metrics metrics = new Metrics(this, 15374);
-    }
-
-    public static Netheopoiesis getInstance() {
-        return Netheopoiesis.instance;
-    }
-
-    public static void logError(@Nonnull String string) {
-        instance.getLogger().severe(string);
-    }
-
-    public static void logWarning(@Nonnull String string) {
-        instance.getLogger().warning(string);
-    }
-
-    public static void logInfo(@Nonnull String string) {
-        instance.getLogger().info(string);
-    }
-
-    @Nonnull
-    public static PluginManager getPluginManager() {
-        return Netheopoiesis.getInstance().getServer().getPluginManager();
-    }
-
-    public static ConfigManager getConfigManager() {
-        return Netheopoiesis.getInstance().configManager;
-    }
-
-    public static SupportedPluginManager getSupportedPluginManager() {
-        return Netheopoiesis.getInstance().supportedPluginManager;
-    }
-
-    public static ListenerManager getListenerManager() {
-        return Netheopoiesis.getInstance().listenerManager;
-    }
-
-    public static TaskManager getRunnableManager() {
-        return Netheopoiesis.getInstance().taskManager;
-    }
-
-    public static MobManager getMobManager() {
-        return Netheopoiesis.getInstance().mobManager;
-    }
-
-    public static Purification getPurificationMemory() {
-        return Netheopoiesis.getInstance().purification;
-    }
-
-    public static Registry getPlantRegistry() {
-        return Netheopoiesis.getInstance().registry;
     }
 }

@@ -14,53 +14,53 @@ import java.util.UUID;
 public class MobCap {
 
     public static final MobCap WATER_AMBIENT = new MobCap(
-        MobCapType.WATER_AMBIENT,
-        Netheopoiesis.getConfigManager().getPlayerMobCapWaterAmbient()
+            MobCapType.WATER_AMBIENT,
+            Netheopoiesis.getConfigManager().getPlayerMobCapWaterAmbient()
     );
 
     public static final MobCap WATER_ANIMAL = new MobCap(
-        MobCapType.WATER_ANIMAL,
-        Netheopoiesis.getConfigManager().getPlayerMobCapWaterAnimal()
+            MobCapType.WATER_ANIMAL,
+            Netheopoiesis.getConfigManager().getPlayerMobCapWaterAnimal()
     );
 
     public static final MobCap WATER_HOSTILE = new MobCap(
-        MobCapType.WATER_HOSTILE,
-        Netheopoiesis.getConfigManager().getPlayerMobCapWaterHostile()
+            MobCapType.WATER_HOSTILE,
+            Netheopoiesis.getConfigManager().getPlayerMobCapWaterHostile()
     );
 
     public static final MobCap LAND_AMBIENT = new MobCap(
-        MobCapType.WATER_AMBIENT,
-        Netheopoiesis.getConfigManager().getPlayerMobCapLandAmbient()
+            MobCapType.WATER_AMBIENT,
+            Netheopoiesis.getConfigManager().getPlayerMobCapLandAmbient()
     );
 
     public static final MobCap LAND_ANIMAL = new MobCap(
-        MobCapType.LAND_ANIMAL,
-        Netheopoiesis.getConfigManager().getPlayerMobCapLandAnimal()
+            MobCapType.LAND_ANIMAL,
+            Netheopoiesis.getConfigManager().getPlayerMobCapLandAnimal()
     );
 
     public static final MobCap LAND_HOSTILE = new MobCap(
-        MobCapType.LAND_HOSTILE,
-        Netheopoiesis.getConfigManager().getPlayerMobCapLandHostile()
+            MobCapType.LAND_HOSTILE,
+            Netheopoiesis.getConfigManager().getPlayerMobCapLandHostile()
     );
 
     public static final MobCap VILLAGER = new MobCap(
-        MobCapType.VILLAGER,
-        Netheopoiesis.getConfigManager().getPlayerMobCapVillager()
+            MobCapType.VILLAGER,
+            Netheopoiesis.getConfigManager().getPlayerMobCapVillager()
     );
 
     public static final MobCap PIGLIN_TRADER = new MobCap(
-        MobCapType.PIGLIN_TRADER,
-        Netheopoiesis.getConfigManager().getPlayerMobCapPiglinTrader()
+            MobCapType.PIGLIN_TRADER,
+            Netheopoiesis.getConfigManager().getPlayerMobCapPiglinTrader()
     );
 
     public static final MobCap WANDERING_TRADER = new MobCap(
-        MobCapType.WANDERING_TRADER,
-        Netheopoiesis.getConfigManager().getPlayerMobCapWanderingTrader()
+            MobCapType.WANDERING_TRADER,
+            Netheopoiesis.getConfigManager().getPlayerMobCapWanderingTrader()
     );
 
     public static final MobCap MISC = new MobCap(
-        MobCapType.MISC,
-        0
+            MobCapType.MISC,
+            0
     );
 
     private final int amountPerPlayer;

@@ -51,11 +51,11 @@ public class PurificationScanner extends SlimefunItem {
             final SlimefunItem slimefunItem = BlockStorage.check(block);
 
             if (slimefunItem instanceof PurifyingObject object
-                && ProtectionUtils.hasPermission(player, block, Interaction.INTERACT_BLOCK)
+                    && ProtectionUtils.hasPermission(player, block, Interaction.INTERACT_BLOCK)
             ) {
                 final String messageValue = Theme.CLICK_INFO.asTitle(
-                    "Purification Value",
-                    object.getPurificationValue()
+                        "Purification Value",
+                        object.getPurificationValue()
                 );
                 player.sendMessage(messageValue);
             }

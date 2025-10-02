@@ -62,8 +62,8 @@ public class HarvestingTool extends LimitedUseItem {
 
     private boolean canHarvest(@Nonnull NetherSeed seed, @Nonnull Block block, @Nonnull Player player) {
         return seed.isHarvestable()
-            && seed.isMature(block)
-            && ProtectionUtils.hasPermission(player, block, Interaction.INTERACT_BLOCK);
+                && seed.isMature(block)
+                && ProtectionUtils.hasPermission(player, block, Interaction.INTERACT_BLOCK);
     }
 
     @Override

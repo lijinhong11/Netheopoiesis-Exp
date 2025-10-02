@@ -69,31 +69,39 @@ public class BeaconSiphoningBlock extends SlimefunItem implements PurificationDr
         this.powerPerTick = powerPerTick;
     }
 
+    public static void setPowerToMap(@Nonnull Location location, int power) {
+        POWER_MAP.put(new BlockPosition(location), power);
+    }
+
+    public static int getPowerFromMap(@Nonnull Location location) {
+        return POWER_MAP.getOrDefault(new BlockPosition(location), 0);
+    }
+
     @Override
     public void preRegister() {
         addItemHandler(
-            new BlockTicker() {
-                @Override
-                public boolean isSynchronized() {
-                    return true;
-                }
+                new BlockTicker() {
+                    @Override
+                    public boolean isSynchronized() {
+                        return true;
+                    }
 
-                @Override
-                public void tick(Block block, SlimefunItem item, Config data) {
-                    onTick(block, item, data);
-                }
+                    @Override
+                    public void tick(Block block, SlimefunItem item, Config data) {
+                        onTick(block, item, data);
+                    }
 
-                @Override
-                public void uniqueTick() {
-                    onUniqueTick();
+                    @Override
+                    public void uniqueTick() {
+                        onUniqueTick();
+                    }
+                },
+                new BlockBreakHandler(false, false) {
+                    @Override
+                    public void onPlayerBreak(BlockBreakEvent e, ItemStack item, List<ItemStack> drops) {
+                        POWER_MAP.remove(new BlockPosition(e.getBlock()));
+                    }
                 }
-            },
-            new BlockBreakHandler(false, false) {
-                @Override
-                public void onPlayerBreak(BlockBreakEvent e, ItemStack item, List<ItemStack> drops) {
-                    POWER_MAP.remove(new BlockPosition(e.getBlock()));
-                }
-            }
         );
     }
 
@@ -124,7 +132,7 @@ public class BeaconSiphoningBlock extends SlimefunItem implements PurificationDr
                 final Block blockBelow = block.getRelative(x, -1, z);
                 final SlimefunItem slimefunItem = BlockStorage.check(blockBelow);
                 if (slimefunItem instanceof BeaconSiphoningBlock siphon
-                    && siphon.tier == this.tier + 1
+                        && siphon.tier == this.tier + 1
                 ) {
                     final int blockBelowPower = getPowerFromMap(blockBelow.getLocation());
                     cumulativePower += blockBelowPower;
@@ -216,13 +224,5 @@ public class BeaconSiphoningBlock extends SlimefunItem implements PurificationDr
 
     public int getCurrentPower(@Nonnull Block block) {
         return getPowerFromMap(block.getLocation());
-    }
-
-    public static void setPowerToMap(@Nonnull Location location, int power) {
-        POWER_MAP.put(new BlockPosition(location), power);
-    }
-
-    public static int getPowerFromMap(@Nonnull Location location) {
-        return POWER_MAP.getOrDefault(new BlockPosition(location), 0);
     }
 }

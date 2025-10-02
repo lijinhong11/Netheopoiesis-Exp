@@ -62,29 +62,6 @@ public class Purification {
         Bukkit.getScheduler().runTaskTimerAsynchronously(Netheopoiesis.getInstance(), this::collateChunkValues, 1, 100);
     }
 
-    private void collateChunkValues() {
-        chunkValues.clear();
-        for (Map.Entry<BlockPosition, Integer> entry : purificationModifiers.entrySet()) {
-            final BlockPosition blockPos = entry.getKey();
-            final ChunkPosition chunkPos = new ChunkPosition(
-                blockPos.getWorld(),
-                blockPos.getChunkX(),
-                blockPos.getChunkZ()
-            );
-            final int currentValue = chunkValues.getOrDefault(chunkPos, 0);
-            final int newValue = currentValue + entry.getValue();
-            chunkValues.put(chunkPos, newValue);
-        }
-    }
-
-    public Map<BlockPosition, Integer> getPurificationModifiers() {
-        return purificationModifiers;
-    }
-
-    public Map<ChunkPosition, Integer> getChunkValues() {
-        return chunkValues;
-    }
-
     public static void addValue(@Nonnull Block block, int value) {
         final BlockPosition blockPosition = new BlockPosition(block);
         instance.getPurificationModifiers().put(blockPosition, value);
@@ -113,5 +90,28 @@ public class Purification {
 
     public static Purification getInstance() {
         return instance;
+    }
+
+    private void collateChunkValues() {
+        chunkValues.clear();
+        for (Map.Entry<BlockPosition, Integer> entry : purificationModifiers.entrySet()) {
+            final BlockPosition blockPos = entry.getKey();
+            final ChunkPosition chunkPos = new ChunkPosition(
+                    blockPos.getWorld(),
+                    blockPos.getChunkX(),
+                    blockPos.getChunkZ()
+            );
+            final int currentValue = chunkValues.getOrDefault(chunkPos, 0);
+            final int newValue = currentValue + entry.getValue();
+            chunkValues.put(chunkPos, newValue);
+        }
+    }
+
+    public Map<BlockPosition, Integer> getPurificationModifiers() {
+        return purificationModifiers;
+    }
+
+    public Map<ChunkPosition, Integer> getChunkValues() {
+        return chunkValues;
     }
 }

@@ -42,11 +42,11 @@ public class PurificationSeed extends NetherSeed {
     public PurificationSeed(SlimefunItemStack item, ItemStack[] recipe) {
         super(item, RecipeTypes.VANILLA_DROP, recipe, null);
         materials = Set.of(
-            Material.NETHERRACK,
-            Material.CRIMSON_NYLIUM,
-            Material.WARPED_NYLIUM,
-            Material.NETHER_QUARTZ_ORE,
-            Material.NETHER_GOLD_ORE
+                Material.NETHERRACK,
+                Material.CRIMSON_NYLIUM,
+                Material.WARPED_NYLIUM,
+                Material.NETHER_QUARTZ_ORE,
+                Material.NETHER_GOLD_ORE
         );
     }
 
@@ -73,7 +73,7 @@ public class PurificationSeed extends NetherSeed {
 
         final Block block = location.clone().add(randomX, randomY, randomZ).getBlock();
         if (materials.contains(block.getType())
-            && ProtectionUtils.hasPermission(getOwner(location), block, Interaction.BREAK_BLOCK)
+                && ProtectionUtils.hasPermission(getOwner(location), block, Interaction.BREAK_BLOCK)
         ) {
             final NetherCrux crux = (NetherCrux) SlimefunItem.getByItem(Stacks.BASIC_PURIFIED_NETHERRACK);
             final CruxSpreadEvent event = new CruxSpreadEvent(block, this, crux);
@@ -100,8 +100,8 @@ public class PurificationSeed extends NetherSeed {
         final Location location = block.getLocation();
 
         if (location.getWorld() != null
-            && WorldUtils.inNether(location.getWorld())
-            && (materials.contains(blockBelow.getType()) || possibleCrux instanceof NetherCrux)
+                && WorldUtils.inNether(location.getWorld())
+                && (materials.contains(blockBelow.getType()) || possibleCrux instanceof NetherCrux)
         ) {
             final UUID uuid = event.getPlayer().getUniqueId();
             BlockStorage.addBlockInfo(location, Keys.SEED_GROWTH_STAGE, "0");

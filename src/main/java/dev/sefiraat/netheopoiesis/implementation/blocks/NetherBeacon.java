@@ -12,11 +12,7 @@ import io.github.thebusybiscuit.slimefun4.libraries.dough.data.persistent.Persis
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
-import org.bukkit.Color;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Particle;
-import org.bukkit.Sound;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.FallingBlock;
@@ -57,9 +53,9 @@ public class NetherBeacon extends BeaconSiphoningBlock {
             final int randX = ThreadLocalRandom.current().nextInt(-radius, radius + 1);
             final int randZ = ThreadLocalRandom.current().nextInt(-radius, radius + 1);
             Block testBlock = block.getWorld().getBlockAt(
-                block.getX() + randX,
-                NETHER_HIGHEST_BEDROCK,
-                block.getZ() + randZ
+                    block.getX() + randX,
+                    NETHER_HIGHEST_BEDROCK,
+                    block.getZ() + randZ
             );
 
             // Bedrock is already broken here, we will stop now.
@@ -77,14 +73,14 @@ public class NetherBeacon extends BeaconSiphoningBlock {
 
             // If player doesn't have permission to break block or if it's an SF block, skip this one
             if (!ProtectionUtils.hasPermission(getOwner(block.getLocation()), testBlockBelow, Interaction.BREAK_BLOCK)
-                || BlockStorage.check(testBlock) != null
+                    || BlockStorage.check(testBlock) != null
             ) {
                 continue;
             }
 
             final FallingBlock fallingBlock = testBlock.getWorld().spawnFallingBlock(
-                testBlock.getLocation().clone().add(0.5, 0.5, 0.5),
-                testBlock.getBlockData()
+                    testBlock.getLocation().clone().add(0.5, 0.5, 0.5),
+                    testBlock.getBlockData()
             );
             fallingBlock.setDropItem(false);
             PersistentDataAPI.setBoolean(fallingBlock, Keys.MANAGED_FALLING_BLOCK, true);

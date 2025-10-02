@@ -37,20 +37,20 @@ public class Paste extends SlimefunItem {
 
         // Get the dominant flavour(s) present in this paste
         final int highest = profile.getFlavourMap().values().stream()
-                                   .mapToInt(Integer::intValue)
-                                   .max()
-                                   .orElse(-1);
+                .mapToInt(Integer::intValue)
+                .max()
+                .orElse(-1);
 
         final Set<Flavour> filtered = profile.getFlavourMap().keySet().stream()
-                                             .filter(key -> profile.getFlavourMap().get(key) == highest)
-                                             .collect(Collectors.toSet());
+                .filter(key -> profile.getFlavourMap().get(key) == highest)
+                .collect(Collectors.toSet());
 
         this.dominantFlavours = new RandomizedSet<>(filtered);
 
         // Get the total flavour volume in this paste
         this.flavourVolume = profile.getFlavourMap().values().stream()
-                                    .mapToInt(Integer::intValue)
-                                    .sum();
+                .mapToInt(Integer::intValue)
+                .sum();
     }
 
     @Override

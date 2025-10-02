@@ -26,6 +26,11 @@ public class DropListener implements Listener {
     @Nonnull
     private static final Map<Material, BlockDrop> DROP_MAP = new EnumMap<>(Material.class);
 
+    @Nonnull
+    public static Map<Material, BlockDrop> getDropMap() {
+        return DROP_MAP;
+    }
+
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
     public void onBlockBreak(@Nonnull BlockBreakEvent event) {
         final BlockDrop blockDrop = DROP_MAP.get(event.getBlock().getType());
@@ -37,46 +42,35 @@ public class DropListener implements Listener {
     }
 
     /**
-     * This class represents a drop including its source, the item to drop and the chance for it to occur
-     * Including a method to roll for and spawn the drop itself.
-     */
-    public static class BlockDrop {
-        private final ItemStack stackToDrop;
-        private final Material dropFrom;
-        private final double dropChance;
+         * This class represents a drop including its source, the item to drop and the chance for it to occur
+         * Including a method to roll for and spawn the drop itself.
+         */
+        public record BlockDrop(ItemStack stackToDrop, Material dropFrom, double dropChance) {
+            public BlockDrop(@Nonnull ItemStack stackToDrop, @Nonnull Material dropFrom, double dropChance) {
+                this.stackToDrop = stackToDrop;
+                this.dropFrom = dropFrom;
+                this.dropChance = dropChance;
+            }
 
-        public BlockDrop(@Nonnull ItemStack stackToDrop, @Nonnull Material dropFrom, double dropChance) {
-            this.stackToDrop = stackToDrop;
-            this.dropFrom = dropFrom;
-            this.dropChance = dropChance;
-        }
+            @Override
+            @Nonnull
+            public ItemStack stackToDrop() {
+                return stackToDrop;
+            }
 
-        @Nonnull
-        public ItemStack getStackToDrop() {
-            return stackToDrop;
-        }
+            @Override
+            @Nonnull
+            public Material dropFrom() {
+                return dropFrom;
+            }
 
-        @Nonnull
-        public Material getDropFrom() {
-            return dropFrom;
-        }
-
-        public double getDropChance() {
-            return dropChance;
-        }
-
-        public void rollDrop(@Nonnull BlockBreakEvent event) {
-            final double roll = ThreadLocalRandom.current().nextDouble();
-            if (roll <= this.dropChance) {
-                final ItemStack drop = stackToDrop.clone();
-                final Location location = event.getBlock().getLocation().clone().add(.5, .5, .5);
-                location.getWorld().dropItem(location, drop);
+            public void rollDrop(@Nonnull BlockBreakEvent event) {
+                final double roll = ThreadLocalRandom.current().nextDouble();
+                if (roll <= this.dropChance) {
+                    final ItemStack drop = stackToDrop.clone();
+                    final Location location = event.getBlock().getLocation().clone().add(.5, .5, .5);
+                    location.getWorld().dropItem(location, drop);
+                }
             }
         }
-    }
-
-    @Nonnull
-    public static Map<Material, BlockDrop> getDropMap() {
-        return DROP_MAP;
-    }
 }

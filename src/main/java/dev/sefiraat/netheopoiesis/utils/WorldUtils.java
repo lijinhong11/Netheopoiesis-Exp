@@ -115,6 +115,7 @@ public final class WorldUtils {
 
     /**
      * Checks if the chunk is loaded using location (doesn't load the chunk)
+     *
      * @param location The location to check
      * @return True if the chunk is loaded.
      */

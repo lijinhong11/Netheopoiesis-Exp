@@ -42,15 +42,15 @@ public class BiomeSpreadingSeed extends CruxSpreadingSeed {
         }
     }
 
+    @Nullable
+    public Biome getBiome() {
+        return this.biome;
+    }
+
     @Nonnull
     public BiomeSpreadingSeed setBiome(@Nonnull Biome biome) {
         this.biome = biome;
         return this;
-    }
-
-    @Nullable
-    public Biome getBiome() {
-        return this.biome;
     }
 
     @Override

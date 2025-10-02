@@ -5,6 +5,7 @@ import dev.sefiraat.netheopoiesis.api.plant.netheos.NetheoBalls;
 import dev.sefiraat.netheopoiesis.implementation.netheos.Paste;
 import dev.sefiraat.netheopoiesis.utils.Keys;
 import dev.sefiraat.netheopoiesis.utils.Theme;
+import dev.sefiraat.netheopoiesis.utils.item.Converter;
 import io.github.thebusybiscuit.slimefun4.api.events.PlayerRightClickEvent;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
@@ -91,7 +92,7 @@ public class MixingQuartz extends LimitedUseItem {
             }
 
             // Get the itemstack then add the flavour volume to the PDC, line to the lore
-            final ItemStack stack = ball.getSlimefunItemStack().item();
+            final ItemStack stack = Converter.getItem(ball.getSlimefunItemStack());
             final ItemMeta itemMeta = stack.getItemMeta();
             final List<String> lore = itemMeta.getLore();
             // Set PDC

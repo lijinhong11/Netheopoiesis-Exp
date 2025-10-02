@@ -6,13 +6,13 @@ import dev.sefiraat.netheopoiesis.api.plant.breeding.BreedingPair;
 import dev.sefiraat.netheopoiesis.implementation.Groups;
 import dev.sefiraat.netheopoiesis.utils.StatisticUtils;
 import dev.sefiraat.netheopoiesis.utils.Theme;
+import dev.sefiraat.netheopoiesis.utils.item.ItemCreator;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.groups.FlexItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.player.PlayerProfile;
 import io.github.thebusybiscuit.slimefun4.core.guide.SlimefunGuide;
 import io.github.thebusybiscuit.slimefun4.core.guide.SlimefunGuideMode;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
-import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ChestMenu;
 import org.bukkit.Material;
@@ -41,10 +41,10 @@ public class DiscoveriesFlexGroup extends FlexItemGroup {
     private static final int PAGE_NEXT = 52;
 
     private static final int[] HEADER = new int[]{
-        0, 1, 2, 3, 4, 5, 6, 7, 8
+            0, 1, 2, 3, 4, 5, 6, 7, 8
     };
     private static final int[] FOOTER = new int[]{
-        45, 46, 47, 48, 49, 50, 51, 52, 53
+            45, 46, 47, 48, 49, 50, 51, 52, 53
     };
 
     private static final int CHILD_SLOT = 22;
@@ -60,30 +60,58 @@ public class DiscoveriesFlexGroup extends FlexItemGroup {
     private static final int PURIFICATION_AMOUNT_SLOT = 38;
     private static final int[] HELD_SLOTS = new int[]{39, 40, 41, 42, 43};
 
-    private static final ItemStack MOTHER_INFO = CustomItemStack.create(
-        Material.LIGHT_BLUE_STAINED_GLASS_PANE,
-        Theme.PASSIVE + "'Mother' Seed"
+    private static final ItemStack MOTHER_INFO = ItemCreator.create(
+            Material.LIGHT_BLUE_STAINED_GLASS_PANE,
+            Theme.PASSIVE + "'Mother' Seed"
     );
 
-    private static final ItemStack FATHER_INFO = CustomItemStack.create(
-        Material.LIGHT_BLUE_STAINED_GLASS_PANE,
-        Theme.PASSIVE + "'Father' Seed"
+    private static final ItemStack FATHER_INFO = ItemCreator.create(
+            Material.LIGHT_BLUE_STAINED_GLASS_PANE,
+            Theme.PASSIVE + "'Father' Seed"
     );
 
-    private static final ItemStack CHILD_INFO = CustomItemStack.create(
-        Material.LIGHT_BLUE_STAINED_GLASS_PANE,
-        Theme.PASSIVE + "'Child' Seed"
+    private static final ItemStack CHILD_INFO = ItemCreator.create(
+            Material.LIGHT_BLUE_STAINED_GLASS_PANE,
+            Theme.PASSIVE + "'Child' Seed"
     );
 
-    private static final ItemStack HELD_SLOT = CustomItemStack.create(
-        Material.BLACK_STAINED_GLASS_PANE,
-        " "
+    private static final ItemStack HELD_SLOT = ItemCreator.create(
+            Material.BLACK_STAINED_GLASS_PANE,
+            " "
     );
 
     private static final DecimalFormat FORMAT = new DecimalFormat("#,###.##");
 
     public DiscoveriesFlexGroup(NamespacedKey key, ItemStack item) {
         super(key, item);
+    }
+
+    @Nonnull
+    public static ItemStack getUndiscovered(@Nonnull NetherSeed seed) {
+        return Theme.themedItemStack(
+                Material.BARRIER,
+                Theme.DISCOVEREY,
+                seed.getItemName(),
+                Theme.ERROR + "Not Discovered",
+                "You have not yet discovered how",
+                "to breed this plant!"
+        );
+    }
+
+    @Nonnull
+    public static ItemStack getGrowthRate(@Nonnull NetherSeed seed) {
+        return ItemCreator.create(
+                Material.WHEAT_SEEDS,
+                Theme.CLICK_INFO.asTitle("Growth Rate", FORMAT.format(seed.getGrowthRate()))
+        );
+    }
+
+    @Nonnull
+    public static ItemStack getPurificationValue(@Nonnull NetherSeed seed) {
+        return ItemCreator.create(
+                Material.NETHERRACK,
+                Theme.CLICK_INFO.asTitle("Purification Value", seed.getPurificationValue())
+        );
     }
 
     @Override
@@ -126,11 +154,11 @@ public class DiscoveriesFlexGroup extends FlexItemGroup {
 
         // Back
         menu.replaceExistingItem(
-            GUIDE_BACK,
-            ChestMenuUtils.getBackButton(
-                player,
-                Slimefun.getLocalization().getMessage("guide.back.guide")
-            )
+                GUIDE_BACK,
+                ChestMenuUtils.getBackButton(
+                        player,
+                        Slimefun.getLocalization().getMessage("guide.back.guide")
+                )
         );
         menu.addMenuClickHandler(GUIDE_BACK, (player1, slot, itemStack, clickAction) -> {
             SlimefunGuide.openItemGroup(profile, Groups.MAIN, mode, 1);
@@ -172,11 +200,11 @@ public class DiscoveriesFlexGroup extends FlexItemGroup {
     ) {
         // Back Button
         menu.replaceExistingItem(
-            GUIDE_BACK,
-            ChestMenuUtils.getBackButton(
-                p,
-                Slimefun.getLocalization().getMessage("guide.back.guide")
-            )
+                GUIDE_BACK,
+                ChestMenuUtils.getBackButton(
+                        p,
+                        Slimefun.getLocalization().getMessage("guide.back.guide")
+                )
         );
         menu.addMenuClickHandler(GUIDE_BACK, (player1, slot, itemStack, clickAction) -> {
             setupPage(player1, profile, mode, menu, returnPage);
@@ -267,33 +295,5 @@ public class DiscoveriesFlexGroup extends FlexItemGroup {
             }
             return false;
         });
-    }
-
-    @Nonnull
-    public static ItemStack getUndiscovered(@Nonnull NetherSeed seed) {
-        return Theme.themedItemStack(
-            Material.BARRIER,
-            Theme.DISCOVEREY,
-            seed.getItemName(),
-            Theme.ERROR + "Not Discovered",
-            "You have not yet discovered how",
-            "to breed this plant!"
-        );
-    }
-
-    @Nonnull
-    public static ItemStack getGrowthRate(@Nonnull NetherSeed seed) {
-        return CustomItemStack.create(
-            Material.WHEAT_SEEDS,
-            Theme.CLICK_INFO.asTitle("Growth Rate", FORMAT.format(seed.getGrowthRate()))
-        );
-    }
-
-    @Nonnull
-    public static ItemStack getPurificationValue(@Nonnull NetherSeed seed) {
-        return CustomItemStack.create(
-            Material.NETHERRACK,
-            Theme.CLICK_INFO.asTitle("Purification Value", seed.getPurificationValue())
-        );
     }
 }

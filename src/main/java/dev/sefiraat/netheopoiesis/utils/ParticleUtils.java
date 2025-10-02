@@ -99,20 +99,20 @@ public final class ParticleUtils {
         while (currentPoint < distance) {
             if (dustOptions != null) {
                 start.getWorld().spawnParticle(
-                    particle,
-                    startVector.getX(),
-                    startVector.getY(),
-                    startVector.getZ(),
-                    1,
-                    dustOptions
+                        particle,
+                        startVector.getX(),
+                        startVector.getY(),
+                        startVector.getZ(),
+                        1,
+                        dustOptions
                 );
             } else {
                 start.getWorld().spawnParticle(
-                    particle,
-                    startVector.getX(),
-                    startVector.getY(),
-                    startVector.getZ(),
-                    1
+                        particle,
+                        startVector.getX(),
+                        startVector.getY(),
+                        startVector.getZ(),
+                        1
                 );
             }
             currentPoint += space;

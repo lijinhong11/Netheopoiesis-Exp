@@ -23,16 +23,17 @@ public class Trade {
     }
 
     @Nonnull
+    public static Trade of(@Nonnull ItemStack item, @Nonnull Integer requiredFlavour) {
+        return new Trade(item, requiredFlavour);
+    }
+
+    @Nonnull
     public ItemStack getItem() {
         return tradePair.getFirstValue();
     }
 
     public int getRequiredFlavour() {
         return tradePair.getSecondValue();
-    }
-
-    public void setTradePool(@Nonnull TradePool tradePool) {
-        this.tradePool = tradePool;
     }
 
     @Nonnull
@@ -45,13 +46,12 @@ public class Trade {
         return tradePool;
     }
 
-    @Nonnull
-    public Pair<ItemStack, Integer> getTradePair() {
-        return tradePair;
+    public void setTradePool(@Nonnull TradePool tradePool) {
+        this.tradePool = tradePool;
     }
 
     @Nonnull
-    public static Trade of(@Nonnull ItemStack item, @Nonnull Integer requiredFlavour) {
-        return new Trade(item, requiredFlavour);
+    public Pair<ItemStack, Integer> getTradePair() {
+        return tradePair;
     }
 }

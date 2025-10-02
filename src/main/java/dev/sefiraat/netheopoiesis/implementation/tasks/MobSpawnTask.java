@@ -28,81 +28,81 @@ import javax.annotation.Nonnull;
 public class MobSpawnTask extends BukkitRunnable {
 
     private static final RandomSpawn SQUID = new RandomSpawn(
-        EntityType.SQUID,
-        MobCapType.WATER_ANIMAL,
-        Purification.SPAWN_SQUID,
-        0.5,
-        MobSpawnTask::isWater
+            EntityType.SQUID,
+            MobCapType.WATER_ANIMAL,
+            Purification.SPAWN_SQUID,
+            0.5,
+            MobSpawnTask::isWater
     );
 
     private static final RandomSpawn SALMON = new RandomSpawn(
-        EntityType.SALMON,
-        MobCapType.WATER_AMBIENT,
-        Purification.SPAWN_SALMON,
-        0.5,
-        MobSpawnTask::isWater
+            EntityType.SALMON,
+            MobCapType.WATER_AMBIENT,
+            Purification.SPAWN_SALMON,
+            0.5,
+            MobSpawnTask::isWater
     );
 
     private static final RandomSpawn COD = new RandomSpawn(
-        EntityType.COD,
-        MobCapType.WATER_AMBIENT,
-        Purification.SPAWN_COD,
-        0.5,
-        MobSpawnTask::isWater
+            EntityType.COD,
+            MobCapType.WATER_AMBIENT,
+            Purification.SPAWN_COD,
+            0.5,
+            MobSpawnTask::isWater
     );
 
     private static final RandomSpawn PUFFER_FISH = new RandomSpawn(
-        EntityType.PUFFERFISH,
-        MobCapType.WATER_AMBIENT,
-        Purification.SPAWN_PUFFER_FISH,
-        0.4,
-        MobSpawnTask::isWater
+            EntityType.PUFFERFISH,
+            MobCapType.WATER_AMBIENT,
+            Purification.SPAWN_PUFFER_FISH,
+            0.4,
+            MobSpawnTask::isWater
     );
 
     private static final RandomSpawn TROPICAL_FISH = new RandomSpawn(
-        EntityType.TROPICAL_FISH,
-        MobCapType.WATER_AMBIENT,
-        Purification.SPAWN_TROPICAL_FISH,
-        0.4,
-        MobSpawnTask::isWater
+            EntityType.TROPICAL_FISH,
+            MobCapType.WATER_AMBIENT,
+            Purification.SPAWN_TROPICAL_FISH,
+            0.4,
+            MobSpawnTask::isWater
     );
 
     private static final RandomSpawn AXOLOTL = new RandomSpawn(
-        EntityType.AXOLOTL,
-        MobCapType.WATER_ANIMAL,
-        Purification.SPAWN_AXOLOTL,
-        0.2,
-        MobSpawnTask::isWater
+            EntityType.AXOLOTL,
+            MobCapType.WATER_ANIMAL,
+            Purification.SPAWN_AXOLOTL,
+            0.2,
+            MobSpawnTask::isWater
     );
 
     // Todo work out how to also spawn Llamas + leads (all for jeff)
     private static final RandomSpawn WANDERING_TRADER = new RandomSpawn(
-        EntityType.WANDERING_TRADER,
-        MobCapType.WANDERING_TRADER,
-        Purification.WANDERING_TRADER,
-        0.1,
-        MobSpawnTask::isSafeGround
+            EntityType.WANDERING_TRADER,
+            MobCapType.WANDERING_TRADER,
+            Purification.WANDERING_TRADER,
+            0.1,
+            MobSpawnTask::isSafeGround
     );
 
     private static final RandomSpawn WANDERING_PIGLIN = new RandomSpawn(
-        EntityType.PIGLIN,
-        MobCapType.PIGLIN_TRADER,
-        Purification.WANDERING_PIGLIN,
-        0.1,
-        false,
-        MobSpawnTask::isSafeGround,
-        livingEntity -> {
-            final Location location = livingEntity.getLocation();
-            final World world = location.getWorld();
-            final LivingEntity strider1 = (LivingEntity) world.spawnEntity(location, EntityType.STRIDER, false);
-            final LivingEntity strider2 = (LivingEntity) world.spawnEntity(location, EntityType.STRIDER, false);
+            EntityType.PIGLIN,
+            MobCapType.PIGLIN_TRADER,
+            Purification.WANDERING_PIGLIN,
+            0.1,
+            false,
+            MobSpawnTask::isSafeGround,
+            livingEntity -> {
+                final Location location = livingEntity.getLocation();
+                final World world = location.getWorld();
+                final LivingEntity strider1 = (LivingEntity) world.spawnEntity(location, EntityType.STRIDER, false);
+                final LivingEntity strider2 = (LivingEntity) world.spawnEntity(location, EntityType.STRIDER, false);
 
-            strider1.setLeashHolder(livingEntity);
-            strider2.setLeashHolder(livingEntity);
+                strider1.setLeashHolder(livingEntity);
+                strider2.setLeashHolder(livingEntity);
 
-            MobManager.getInstance().addMob(MobCapType.MISC, strider1, true);
-            MobManager.getInstance().addMob(MobCapType.MISC, strider2, true);
-        }
+                MobManager.getInstance().addMob(MobCapType.MISC, strider1, true);
+                MobManager.getInstance().addMob(MobCapType.MISC, strider2, true);
+            }
     );
 
     private final RandomizedSet<RandomSpawn> possibleSpawns = new RandomizedSet<>();
@@ -116,6 +116,16 @@ public class MobSpawnTask extends BukkitRunnable {
         possibleSpawns.add(AXOLOTL, 1);
         possibleSpawns.add(WANDERING_TRADER, 1);
         possibleSpawns.add(WANDERING_PIGLIN, 1);
+    }
+
+    private static boolean isWater(@Nonnull Location location) {
+        return location.getBlock().getType() == Material.WATER;
+    }
+
+    private static boolean isSafeGround(@Nonnull Location location) {
+        final Block block = location.getBlock();
+        final Block blockBelow = block.getRelative(BlockFace.DOWN);
+        return block.getType().isAir() && blockBelow.getType().isSolid();
     }
 
     @Override
@@ -132,15 +142,5 @@ public class MobSpawnTask extends BukkitRunnable {
                 possibleSpawns.getRandom().trySpawn(randomLocation);
             }
         }
-    }
-
-    private static boolean isWater(@Nonnull Location location) {
-        return location.getBlock().getType() == Material.WATER;
-    }
-
-    private static boolean isSafeGround(@Nonnull Location location) {
-        final Block block = location.getBlock();
-        final Block blockBelow = block.getRelative(BlockFace.DOWN);
-        return block.getType().isAir() && blockBelow.getType().isSolid();
     }
 }

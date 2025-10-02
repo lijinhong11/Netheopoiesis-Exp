@@ -344,6 +344,11 @@ public enum Skulls {
     }
 
     @Nonnull
+    public static Skulls[] getCachedValues() {
+        return CACHED_VALUES;
+    }
+
+    @Nonnull
     public String getHash() {
         return hash;
     }
@@ -356,10 +361,5 @@ public enum Skulls {
     @Nonnull
     public PlayerSkin getPlayerSkin() {
         return PlayerSkin.fromHashCode(hash);
-    }
-
-    @Nonnull
-    public static Skulls[] getCachedValues() {
-        return CACHED_VALUES;
     }
 }

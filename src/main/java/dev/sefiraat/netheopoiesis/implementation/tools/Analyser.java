@@ -84,8 +84,8 @@ public class Analyser extends SlimefunItem {
         final String messageStage = Theme.CLICK_INFO.asTitle("Growth Stage", growthStage);
         final String messageOwner = Theme.CLICK_INFO.asTitle("Owner", ownerPlayer.getName());
         final String messageValue = Theme.CLICK_INFO.asTitle(
-            "Purification Value",
-            plant.getPurificationValue()
+                "Purification Value",
+                plant.getPurificationValue()
         );
         player.sendMessage(messageType, messageStage, messageOwner, messageValue);
     }

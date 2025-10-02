@@ -59,8 +59,8 @@ public class CruxSpreadingSeed extends NetherSeed implements SpreadingPlant {
         final Block block = sourceLocation.clone().add(randomX, randomY, randomZ).getBlock();
         final SlimefunItem possibleCrux = BlockStorage.check(block);
         if (possibleCrux instanceof NetherCrux currentCrux
-            && getPlacements().contains(currentCrux.getId())
-            && ProtectionUtils.hasPermission(getOwner(sourceLocation), block, Interaction.BREAK_BLOCK)
+                && getPlacements().contains(currentCrux.getId())
+                && ProtectionUtils.hasPermission(getOwner(sourceLocation), block, Interaction.BREAK_BLOCK)
         ) {
             final SlimefunItem slimefunItem = SlimefunItem.getByItem(convertTo);
 
@@ -91,17 +91,17 @@ public class CruxSpreadingSeed extends NetherSeed implements SpreadingPlant {
         return this;
     }
 
+    @Nullable
+    public SlimefunItemStack getCrux() {
+        return this.convertTo;
+    }
+
     @Nonnull
     public CruxSpreadingSeed setCrux(@Nonnull SlimefunItemStack crux) {
         final SlimefunItem slimefunItem = SlimefunItem.getByItem(crux);
         Preconditions.checkArgument(slimefunItem instanceof NetherCrux, "Set Crux MUST be a NetherCrux");
         this.convertTo = crux;
         return this;
-    }
-
-    @Nullable
-    public SlimefunItemStack getCrux() {
-        return this.convertTo;
     }
 
     @Override

@@ -1,7 +1,7 @@
 package dev.sefiraat.netheopoiesis.utils;
 
+import dev.sefiraat.netheopoiesis.utils.item.ItemCreator;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
-import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -63,56 +63,6 @@ public enum Theme {
         this.loreLine = loreLine;
     }
 
-    public String color(@Nonnull String string) {
-        return this + string;
-    }
-
-    /**
-     * Applies the theme color to a given string
-     *
-     * @param value The Object (as string) to apply the color to
-     * @return Returns the string provides preceded by the color
-     */
-    @Nonnull
-    public String apply(@Nonnull Object value) {
-        return this.color + String.valueOf(value);
-    }
-
-    /**
-     * Applies the theme color to the first string and PASSIVE to the second
-     *
-     * @param value1 The Object (as string) to apply the color to
-     * @param value2 The Object (as string) to apply PASSIVE to
-     * @return Returns the string provides preceded by the color
-     */
-    @Nonnull
-    public String asTitle(@Nonnull Object value1, @Nonnull Object value2) {
-        return this.color + String.valueOf(value1) + ": " + Theme.PASSIVE + value2;
-    }
-
-    @Nonnull
-    public ChatColor getColor() {
-        return color;
-    }
-
-    @Nonnull
-    public Particle.DustOptions getDustOptions(float size) {
-        return new Particle.DustOptions(
-            Color.fromRGB(
-                color.getColor().getRed(),
-                color.getColor().getGreen(),
-                color.getColor().getBlue()
-            ),
-            size
-        );
-    }
-
-    @Override
-    @Nonnull
-    public String toString() {
-        return this.color.toString();
-    }
-
     public static Theme[] getCachedValues() {
         return CACHED_VALUES;
     }
@@ -144,10 +94,10 @@ public enum Theme {
         finalLore.add("");
         finalLore.add(applyThemeToString(Theme.CLICK_INFO, themeType.getLoreLine()));
         return new SlimefunItemStack(
-            id,
-            itemStack,
-            Theme.applyThemeToString(themeType, name),
-            finalLore.toArray(new String[finalLore.size() - 1])
+                id,
+                itemStack,
+                Theme.applyThemeToString(themeType, name),
+                finalLore.toArray(new String[finalLore.size() - 1])
         );
     }
 
@@ -178,10 +128,10 @@ public enum Theme {
         finalLore.add("");
         finalLore.add(applyThemeToString(Theme.CLICK_INFO, themeType.getLoreLine()));
         return new SlimefunItemStack(
-            id,
-            material,
-            Theme.applyThemeToString(themeType, name),
-            finalLore.toArray(new String[finalLore.size() - 1])
+                id,
+                material,
+                Theme.applyThemeToString(themeType, name),
+                finalLore.toArray(new String[finalLore.size() - 1])
         );
     }
 
@@ -217,10 +167,10 @@ public enum Theme {
         finalLore.add("");
         finalLore.add(applyThemeToString(Theme.CLICK_INFO, themeType.getLoreLine()));
         return new SlimefunItemStack(
-            id,
-            seedStack,
-            Theme.applyThemeToString(themeType, name),
-            finalLore.toArray(new String[finalLore.size() - 1])
+                id,
+                seedStack,
+                Theme.applyThemeToString(themeType, name),
+                finalLore.toArray(new String[finalLore.size() - 1])
         );
     }
 
@@ -250,10 +200,6 @@ public enum Theme {
         return themeType.getColor() + string1 + ": " + Theme.PASSIVE + value;
     }
 
-    public String getLoreLine() {
-        return loreLine;
-    }
-
     /**
      * Gets an ItemStack with a pre-populated lore and name with themed colors.
      *
@@ -274,10 +220,64 @@ public enum Theme {
         }
         finalLore.add("");
         finalLore.add(applyThemeToString(Theme.CLICK_INFO, themeType.getLoreLine()));
-        return CustomItemStack.create(
-            material,
-            Theme.applyThemeToString(themeType, name),
-            finalLore.toArray(new String[finalLore.size() - 1])
+        return ItemCreator.create(
+                material,
+                Theme.applyThemeToString(themeType, name),
+                finalLore.toArray(new String[finalLore.size() - 1])
         );
+    }
+
+    public String color(@Nonnull String string) {
+        return this + string;
+    }
+
+    /**
+     * Applies the theme color to a given string
+     *
+     * @param value The Object (as string) to apply the color to
+     * @return Returns the string provides preceded by the color
+     */
+    @Nonnull
+    public String apply(@Nonnull Object value) {
+        return this.color + String.valueOf(value);
+    }
+
+    /**
+     * Applies the theme color to the first string and PASSIVE to the second
+     *
+     * @param value1 The Object (as string) to apply the color to
+     * @param value2 The Object (as string) to apply PASSIVE to
+     * @return Returns the string provides preceded by the color
+     */
+    @Nonnull
+    public String asTitle(@Nonnull Object value1, @Nonnull Object value2) {
+        return this.color + String.valueOf(value1) + ": " + Theme.PASSIVE + value2;
+    }
+
+    @Nonnull
+    public ChatColor getColor() {
+        return color;
+    }
+
+    @Nonnull
+    public Particle.DustOptions getDustOptions(float size) {
+        return new Particle.DustOptions(
+                Color.fromRGB(
+                        color.getColor().getRed(),
+                        color.getColor().getGreen(),
+                        color.getColor().getBlue()
+                ),
+                size
+        );
+    }
+
+    @Override
+    @Nonnull
+    public String toString() {
+        return this.color.toString();
+    }
+
+    public String getLoreLine() {
+        return loreLine;
     }
 }

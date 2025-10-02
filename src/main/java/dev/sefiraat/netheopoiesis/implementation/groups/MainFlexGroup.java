@@ -33,10 +33,10 @@ public class MainFlexGroup extends FlexItemGroup {
     private static final int GUIDE = 17;
 
     private static final int[] HEADER = new int[]{
-        0, 1, 2, 3, 4, 5, 6, 7, 8
+            0, 1, 2, 3, 4, 5, 6, 7, 8
     };
     private static final int[] FOOTER = new int[]{
-        45, 46, 47, 48, 49, 50, 51, 52, 53
+            45, 46, 47, 48, 49, 50, 51, 52, 53
     };
 
     public MainFlexGroup(NamespacedKey key, ItemStack item) {
@@ -76,11 +76,11 @@ public class MainFlexGroup extends FlexItemGroup {
 
         // Back
         menu.replaceExistingItem(
-            GUIDE_BACK,
-            ChestMenuUtils.getBackButton(
-                player,
-                Slimefun.getLocalization().getMessage("guide.back.guide")
-            )
+                GUIDE_BACK,
+                ChestMenuUtils.getBackButton(
+                        player,
+                        Slimefun.getLocalization().getMessage("guide.back.guide")
+                )
         );
         menu.addMenuClickHandler(GUIDE_BACK, (player1, slot, itemStack, clickAction) -> {
             SlimefunGuide.openMainMenu(profile, mode, 1);
@@ -90,55 +90,55 @@ public class MainFlexGroup extends FlexItemGroup {
         // Crafting
         menu.replaceExistingItem(CRAFTING, Groups.CRAFTING.getItem(player));
         menu.addMenuClickHandler(CRAFTING, (player1, i1, itemStack1, clickAction) ->
-            openPage(profile, Groups.CRAFTING, mode, 1)
+                openPage(profile, Groups.CRAFTING, mode, 1)
         );
 
         // Tools
         menu.replaceExistingItem(TOOLS, Groups.TOOLS.getItem(player));
         menu.addMenuClickHandler(TOOLS, (player1, i1, itemStack1, clickAction) ->
-            openPage(profile, Groups.TOOLS, mode, 1)
+                openPage(profile, Groups.TOOLS, mode, 1)
         );
 
         // Seeds
         menu.replaceExistingItem(SEEDS, Groups.SEEDS.getItem(player));
         menu.addMenuClickHandler(SEEDS, (player1, i1, itemStack1, clickAction) ->
-            openPage(profile, Groups.SEEDS, mode, 1)
+                openPage(profile, Groups.SEEDS, mode, 1)
         );
 
         // Pastes
         menu.replaceExistingItem(PASTES, Groups.PASTES.getItem(player));
         menu.addMenuClickHandler(PASTES, (player1, i1, itemStack1, clickAction) ->
-            openPage(profile, Groups.PASTES, mode, 1)
+                openPage(profile, Groups.PASTES, mode, 1)
         );
 
         // Balls
         menu.replaceExistingItem(BALLS, Groups.BALLS.getItem(player));
         menu.addMenuClickHandler(BALLS, (player1, i1, itemStack1, clickAction) ->
-            openPage(profile, Groups.BALLS, mode, 1)
+                openPage(profile, Groups.BALLS, mode, 1)
         );
 
         // Crux'
         menu.replaceExistingItem(CRUX, Groups.CRUX.getItem(player));
         menu.addMenuClickHandler(CRUX, (player1, i1, itemStack1, clickAction) ->
-            openPage(profile, Groups.CRUX, mode, 1)
+                openPage(profile, Groups.CRUX, mode, 1)
         );
 
         // Discoveries
         menu.replaceExistingItem(DISCOVERIES, Groups.DISCOVERIES.getItem(player));
         menu.addMenuClickHandler(DISCOVERIES, (player1, i1, itemStack1, clickAction) ->
-            openPage(profile, Groups.DISCOVERIES, mode, 1)
+                openPage(profile, Groups.DISCOVERIES, mode, 1)
         );
 
         // Trades
         menu.replaceExistingItem(TRADES, Groups.TRADES.getItem(player));
         menu.addMenuClickHandler(TRADES, (player1, i1, itemStack1, clickAction) ->
-            openPage(profile, Groups.TRADES, mode, 1)
+                openPage(profile, Groups.TRADES, mode, 1)
         );
 
         // Guide
         menu.replaceExistingItem(GUIDE, Groups.GUIDE.getItem(player));
         menu.addMenuClickHandler(GUIDE, (player1, i1, itemStack1, clickAction) ->
-            openPage(profile, Groups.GUIDE, mode, 1)
+                openPage(profile, Groups.GUIDE, mode, 1)
         );
     }
 

@@ -9,21 +9,18 @@ import dev.sefiraat.netheopoiesis.api.interfaces.CustomPlacementBlock;
 import dev.sefiraat.netheopoiesis.api.interfaces.NetherPlant;
 import dev.sefiraat.netheopoiesis.api.interfaces.SeedPaste;
 import dev.sefiraat.netheopoiesis.api.plant.Growth;
+import dev.sefiraat.netheopoiesis.api.plant.GrowthStages;
+import dev.sefiraat.netheopoiesis.api.plant.Placements;
 import dev.sefiraat.netheopoiesis.api.plant.breeding.BreedResult;
 import dev.sefiraat.netheopoiesis.api.plant.breeding.BreedResultType;
 import dev.sefiraat.netheopoiesis.api.plant.breeding.BreedingPair;
 import dev.sefiraat.netheopoiesis.api.plant.netheos.FlavourProfile;
 import dev.sefiraat.netheopoiesis.implementation.Groups;
 import dev.sefiraat.netheopoiesis.implementation.netheos.Paste;
-import dev.sefiraat.netheopoiesis.api.plant.GrowthStages;
-import dev.sefiraat.netheopoiesis.api.plant.Placements;
 import dev.sefiraat.netheopoiesis.listeners.CustomPlacementListener;
-import dev.sefiraat.netheopoiesis.utils.Keys;
-import dev.sefiraat.netheopoiesis.utils.ParticleUtils;
-import dev.sefiraat.netheopoiesis.utils.Skulls;
-import dev.sefiraat.netheopoiesis.utils.StatisticUtils;
-import dev.sefiraat.netheopoiesis.utils.Theme;
-import dev.sefiraat.netheopoiesis.utils.WorldUtils;
+import dev.sefiraat.netheopoiesis.utils.*;
+import dev.sefiraat.netheopoiesis.utils.item.Converter;
+import dev.sefiraat.netheopoiesis.utils.item.ItemCreator;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.events.PlayerRightClickEvent;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
@@ -31,7 +28,6 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.handlers.BlockBreakHandler;
 import io.github.thebusybiscuit.slimefun4.core.handlers.BlockUseHandler;
-import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.skins.PlayerHead;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import me.mrCookieSlime.Slimefun.Objects.handlers.BlockTicker;
@@ -39,12 +35,7 @@ import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
 import me.mrCookieSlime.Slimefun.api.item_transport.ItemTransportFlow;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Color;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Particle;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.HumanEntity;
@@ -57,12 +48,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -72,10 +58,10 @@ public abstract class NetherSeed extends SlimefunItem implements NetherPlant, Se
 
     @Nonnull
     public static final Set<BlockFace> BREEDING_DIRECTIONS = Set.of(
-        BlockFace.NORTH,
-        BlockFace.SOUTH,
-        BlockFace.EAST,
-        BlockFace.WEST
+            BlockFace.NORTH,
+            BlockFace.SOUTH,
+            BlockFace.EAST,
+            BlockFace.WEST
     );
 
     @Nonnull
@@ -117,27 +103,27 @@ public abstract class NetherSeed extends SlimefunItem implements NetherPlant, Se
     @Override
     public void preRegister() {
         addItemHandler(
-            new BlockTicker() {
-                @Override
-                public boolean isSynchronized() {
-                    return true;
-                }
-
-                @Override
-                public void tick(Block block, SlimefunItem item, Config data) {
-                    if (item instanceof NetherSeed seed) {
-                        onTick(block, seed, data);
+                new BlockTicker() {
+                    @Override
+                    public boolean isSynchronized() {
+                        return true;
                     }
-                }
-            },
-            new BlockBreakHandler(false, false) {
-                @Override
-                @ParametersAreNonnullByDefault
-                public void onPlayerBreak(BlockBreakEvent blockBreakEvent, ItemStack itemStack, List<ItemStack> list) {
-                    removePurificationRegistry(blockBreakEvent.getBlock());
-                }
-            },
-            (BlockUseHandler) this::onBlockUse
+
+                    @Override
+                    public void tick(Block block, SlimefunItem item, Config data) {
+                        if (item instanceof NetherSeed seed) {
+                            onTick(block, seed, data);
+                        }
+                    }
+                },
+                new BlockBreakHandler(false, false) {
+                    @Override
+                    @ParametersAreNonnullByDefault
+                    public void onPlayerBreak(BlockBreakEvent blockBreakEvent, ItemStack itemStack, List<ItemStack> list) {
+                        removePurificationRegistry(blockBreakEvent.getBlock());
+                    }
+                },
+                (BlockUseHandler) this::onBlockUse
         );
     }
 
@@ -200,15 +186,15 @@ public abstract class NetherSeed extends SlimefunItem implements NetherPlant, Se
             if (mateItem instanceof NetherSeed mate) {
                 final BreedResult result = Registry.getInstance().getBreedResult(mother.getId(), mate.getId());
 
-                if (result.getResultType() == BreedResultType.NO_PAIRS) {
+                if (result.resultType() == BreedResultType.NO_PAIRS) {
                     // No matching breeding pairs, lets feedback to the player then move to the next direction
                     breedInvalidDisplay(middleBlock.getLocation());
-                } else if (result.getResultType() == BreedResultType.SUCCESS) {
+                } else if (result.resultType() == BreedResultType.SUCCESS) {
                     // Breed was a success - spawn child, log discovery
-                    final NetherSeed child = result.getMatchedPair().getChild();
+                    final NetherSeed child = result.matchedPair().getChild();
                     trySetChildSeed(motherBlock.getLocation(), middleBlock, child);
                     StatisticUtils.unlockDiscovery(getOwner(motherBlock.getLocation()), child.getId());
-                } else if (result.getResultType() == BreedResultType.SPREAD) {
+                } else if (result.resultType() == BreedResultType.SPREAD) {
                     // Breed failed, spread success - spawn copy of mother
                     trySetChildSeed(motherBlock.getLocation(), middleBlock, mother);
                 }
@@ -310,8 +296,8 @@ public abstract class NetherSeed extends SlimefunItem implements NetherPlant, Se
         final SlimefunItem itemBelow = BlockStorage.check(blockBelow);
 
         if (itemBelow instanceof NetherCrux crux
-            && WorldUtils.inNether(block.getWorld())
-            && getPlacements().contains(crux.getId())
+                && WorldUtils.inNether(block.getWorld())
+                && getPlacements().contains(crux.getId())
         ) {
             final UUID uuid = event.getPlayer().getUniqueId();
             BlockStorage.addBlockInfo(location, Keys.SEED_GROWTH_STAGE, "0");
@@ -343,7 +329,7 @@ public abstract class NetherSeed extends SlimefunItem implements NetherPlant, Se
         if (this.getItem().getItemMeta().hasLore()) {
             lore = this.getItem().getItemMeta().getLore().toArray(lore);
         }
-        this.displayPlant = CustomItemStack.create(
+        this.displayPlant = ItemCreator.create(
                 this.description.getFullyGrownPlant(),
                 this.getItemName(),
                 lore
@@ -438,29 +424,29 @@ public abstract class NetherSeed extends SlimefunItem implements NetherPlant, Se
 
     private void registerPaste() {
         final SlimefunItemStack stack = Theme.themedSlimefunItemStack(
-            "NPS_PASTE_" + this.getId().replace("NPS_", ""),
-            Material.RABBIT_STEW,
-            Theme.PASTE,
-            "Netheo Paste: " + ChatColor.stripColor(this.getItemName()),
-            "This paste is highly nutritious and",
-            "loved by Piglins. Can be formed into",
-            "tasty Netheo Balls.",
-            "",
-            Theme.CLICK_INFO.asTitle("Sweet", this.flavourProfile.getSweet()),
-            Theme.CLICK_INFO.asTitle("Sour", this.flavourProfile.getSour()),
-            Theme.CLICK_INFO.asTitle("Salty", this.flavourProfile.getSalty()),
-            Theme.CLICK_INFO.asTitle("Bitter", this.flavourProfile.getBitter()),
-            Theme.CLICK_INFO.asTitle("Umami", this.flavourProfile.getUmami())
+                "NPS_PASTE_" + this.getId().replace("NPS_", ""),
+                Material.RABBIT_STEW,
+                Theme.PASTE,
+                "Netheo Paste: " + ChatColor.stripColor(this.getItemName()),
+                "This paste is highly nutritious and",
+                "loved by Piglins. Can be formed into",
+                "tasty Netheo Balls.",
+                "",
+                Theme.CLICK_INFO.asTitle("Sweet", this.flavourProfile.getSweet()),
+                Theme.CLICK_INFO.asTitle("Sour", this.flavourProfile.getSour()),
+                Theme.CLICK_INFO.asTitle("Salty", this.flavourProfile.getSalty()),
+                Theme.CLICK_INFO.asTitle("Bitter", this.flavourProfile.getBitter()),
+                Theme.CLICK_INFO.asTitle("Umami", this.flavourProfile.getUmami())
         );
 
-        this.crushingDrop = stack.item();
+        this.crushingDrop = Converter.getItem(stack);
 
         final Paste paste = new Paste(
-            Groups.PASTES,
-            stack,
-            RecipeTypes.CRUSHING,
-            RecipeTypes.createCrushingRecipe(this),
-            this.flavourProfile
+                Groups.PASTES,
+                stack,
+                RecipeTypes.CRUSHING,
+                RecipeTypes.createCrushingRecipe(this),
+                this.flavourProfile
         );
         paste.register(Netheopoiesis.getInstance());
     }
@@ -474,7 +460,7 @@ public abstract class NetherSeed extends SlimefunItem implements NetherPlant, Se
     @Nonnull
     @Override
     public GrowthStages getGrowthStages() {
-        return description == null ? GrowthStages.VINEY_RED : description.getStages();
+        return description == null ? GrowthStages.VINEY_RED : description.stages();
     }
 
     @Nullable
@@ -485,23 +471,23 @@ public abstract class NetherSeed extends SlimefunItem implements NetherPlant, Se
     @Nonnull
     @Override
     public Theme getTheme() {
-        return description == null ? Theme.SEED : description.getStages().getTheme();
+        return description == null ? Theme.SEED : description.stages().getTheme();
     }
 
     @Nonnull
     @Override
     public Set<String> getPlacements() {
-        return description == null ? Placements.NULL : description.getPlacements();
+        return description == null ? Placements.NULL : description.placements();
     }
 
     @Override
     public double getGrowthRate() {
-        return (description == null ? 0.05 : description.getGrowthRate()) * Netheopoiesis.GROWTH_RATE_MULTIPLIER;
+        return (description == null ? 0.05 : description.growthRate()) * Netheopoiesis.GROWTH_RATE_MULTIPLIER;
     }
 
     @Override
     public int getPurificationValue() {
-        return (description == null ? 0 : description.getPurificationValue());
+        return (description == null ? 0 : description.purificationValue());
     }
 
     private void growthDisplay(@Nonnull Location location) {

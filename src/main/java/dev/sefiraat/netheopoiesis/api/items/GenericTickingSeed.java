@@ -31,23 +31,23 @@ public class GenericTickingSeed extends NetherSeed {
     @ParametersAreNonnullByDefault
     public void onTickFullyGrown(Location location, NetherSeed seed, Config data) {
         final GenericTickingMethods.TickParameters tickParameters = new GenericTickingMethods.TickParameters(
-            location,
-            seed,
-            data
+                location,
+                seed,
+                data
         );
         Preconditions.checkNotNull(this.consumer);
         this.consumer.accept(tickParameters);
+    }
+
+    @Nullable
+    public Consumer<GenericTickingMethods.TickParameters> getConsumer() {
+        return consumer;
     }
 
     @Nonnull
     public GenericTickingSeed setConsumer(@Nonnull Consumer<GenericTickingMethods.TickParameters> consumer) {
         this.consumer = consumer;
         return this;
-    }
-
-    @Nullable
-    public Consumer<GenericTickingMethods.TickParameters> getConsumer() {
-        return consumer;
     }
 
     @Override

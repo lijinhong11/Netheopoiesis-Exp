@@ -15,12 +15,7 @@ import org.jetbrains.annotations.Unmodifiable;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * The MomManager is used to store all the {@link MobCap}s used by this addon with basic methods for
@@ -48,6 +43,10 @@ public class MobManager {
         mobCaps.put(MobCapType.MISC, MobCap.MISC);
 
         new MobRemovalTask().runTaskTimer(Netheopoiesis.getInstance(), 1200, 1200);
+    }
+
+    public static MobManager getInstance() {
+        return instance;
     }
 
     /**
@@ -267,9 +266,5 @@ public class MobManager {
         for (MobCap cap : mobCaps.values()) {
             cap.killAllMobs();
         }
-    }
-
-    public static MobManager getInstance() {
-        return instance;
     }
 }

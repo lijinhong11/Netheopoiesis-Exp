@@ -2,8 +2,8 @@ package dev.sefiraat.netheopoiesis.api.items;
 
 import dev.sefiraat.netheopoiesis.api.RecipeTypes;
 import dev.sefiraat.netheopoiesis.api.interfaces.PurifyingObject;
-import dev.sefiraat.netheopoiesis.implementation.Stacks;
 import dev.sefiraat.netheopoiesis.api.plant.Placements;
+import dev.sefiraat.netheopoiesis.implementation.Stacks;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
@@ -42,40 +42,40 @@ public class NetherCrux extends SlimefunItem implements PurifyingObject {
     @Override
     public void preRegister() {
         addItemHandler(
-            new BlockBreakHandler(false, true) {
-                @Override
-                @ParametersAreNonnullByDefault
-                public void onPlayerBreak(BlockBreakEvent event, ItemStack item, List<ItemStack> drops) {
-                    // We do not want crux' to be able to drop and placed elsewhere thus gaming the system
-                    final Block block = event.getBlock();
-                    final ItemStack heldItem = event.getPlayer().getInventory().getItemInMainHand();
-                    final SlimefunItem slimefunItem = SlimefunItem.getByItem(heldItem);
-                    if (slimefunItem == null || !slimefunItem.getId().equals(Stacks.CRUX_GATHERER.getItemId())) {
-                        event.setCancelled(true);
-                        block.setType(Material.AIR);
-                        BlockStorage.clearBlockInfo(block);
+                new BlockBreakHandler(false, true) {
+                    @Override
+                    @ParametersAreNonnullByDefault
+                    public void onPlayerBreak(BlockBreakEvent event, ItemStack item, List<ItemStack> drops) {
+                        // We do not want crux' to be able to drop and placed elsewhere thus gaming the system
+                        final Block block = event.getBlock();
+                        final ItemStack heldItem = event.getPlayer().getInventory().getItemInMainHand();
+                        final SlimefunItem slimefunItem = SlimefunItem.getByItem(heldItem);
+                        if (slimefunItem == null || !slimefunItem.getId().equals(Stacks.CRUX_GATHERER.getItemId())) {
+                            event.setCancelled(true);
+                            block.setType(Material.AIR);
+                            BlockStorage.clearBlockInfo(block);
+                        }
+                        removePurificationRegistry(block);
                     }
-                    removePurificationRegistry(block);
-                }
-            },
-            new BlockTicker() {
-                @Override
-                public boolean isSynchronized() {
-                    return false;
-                }
+                },
+                new BlockTicker() {
+                    @Override
+                    public boolean isSynchronized() {
+                        return false;
+                    }
 
-                @Override
-                public void tick(Block block, SlimefunItem item, Config data) {
-                    if (NetherCrux.this.tick >= TICKS_REQUIRED) {
-                        registerPurificationValue(block);
+                    @Override
+                    public void tick(Block block, SlimefunItem item, Config data) {
+                        if (NetherCrux.this.tick >= TICKS_REQUIRED) {
+                            registerPurificationValue(block);
+                        }
+                    }
+
+                    @Override
+                    public void uniqueTick() {
+                        tick = tick >= TICKS_REQUIRED ? 0 : tick + 1;
                     }
                 }
-
-                @Override
-                public void uniqueTick() {
-                    tick = tick >= TICKS_REQUIRED ? 0 : tick + 1;
-                }
-            }
         );
     }
 

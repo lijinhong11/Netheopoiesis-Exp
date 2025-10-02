@@ -23,16 +23,16 @@ public class HarvestableSeed extends NetherSeed {
         super(item);
     }
 
-    @Nonnull
-    public HarvestableSeed setHarvestingResult(@Nonnull ItemStack harvestStack) {
-        this.harvestItemStack = harvestStack;
-        return this;
-    }
-
     @Nullable
     @Override
     public ItemStack getHarvestingResult() {
         return this.harvestItemStack;
+    }
+
+    @Nonnull
+    public HarvestableSeed setHarvestingResult(@Nonnull ItemStack harvestStack) {
+        this.harvestItemStack = harvestStack;
+        return this;
     }
 
     @Override

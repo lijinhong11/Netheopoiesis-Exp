@@ -49,8 +49,8 @@ public class EntitySpawningSeed extends NetherSeed {
 
             // And we need a solid floor and finally not too many nearby mobs
             if (this.entityType == null
-                || !blockBelow.getType().isSolid()
-                || block.getWorld().getNearbyEntities(block.getLocation(), 10, 10, 10).size() > 6
+                    || !blockBelow.getType().isSolid()
+                    || block.getWorld().getNearbyEntities(block.getLocation(), 10, 10, 10).size() > 6
             ) {
                 return;
             }
@@ -67,6 +67,11 @@ public class EntitySpawningSeed extends NetherSeed {
         }
     }
 
+    @Nullable
+    public EntityType getEntityType() {
+        return entityType;
+    }
+
     @Nonnull
     public EntitySpawningSeed setEntityType(@Nonnull EntityType entityType) {
         this.entityType = entityType;
@@ -74,19 +79,14 @@ public class EntitySpawningSeed extends NetherSeed {
     }
 
     @Nullable
-    public EntityType getEntityType() {
-        return entityType;
+    public Consumer<LivingEntity> getCallback() {
+        return callback;
     }
 
     @Nonnull
     public EntitySpawningSeed setCallback(@Nonnull Consumer<LivingEntity> callback) {
         this.callback = callback;
         return this;
-    }
-
-    @Nullable
-    public Consumer<LivingEntity> getCallback() {
-        return callback;
     }
 
     @Override

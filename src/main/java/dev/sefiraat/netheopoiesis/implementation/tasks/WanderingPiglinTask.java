@@ -60,9 +60,9 @@ public class WanderingPiglinTask extends BukkitRunnable {
                     itemStack.setAmount(itemStack.getAmount() - 1);
                     world.dropItem(item.getLocation(), stackToDrop);
                     PersistentDataAPI.setLong(
-                        piglin,
-                        Keys.TRADE_COOLDOWN,
-                        System.currentTimeMillis() + TRADE_COOLDOWN
+                            piglin,
+                            Keys.TRADE_COOLDOWN,
+                            System.currentTimeMillis() + TRADE_COOLDOWN
                     );
                     break;
                 }

@@ -13,12 +13,7 @@ import io.github.thebusybiscuit.slimefun4.core.handlers.BlockUseHandler;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import me.mrCookieSlime.Slimefun.Objects.handlers.BlockTicker;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
-import org.bukkit.Bukkit;
-import org.bukkit.Color;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Particle;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.type.Cake;
 import org.bukkit.entity.Player;
@@ -40,20 +35,20 @@ public class EnderCake extends SlimefunItem {
     @Override
     public void preRegister() {
         addItemHandler(
-            (BlockUseHandler) this::onCakeEat,
-            new BlockTicker() {
-                @Override
-                public boolean isSynchronized() {
-                    return false;
-                }
+                (BlockUseHandler) this::onCakeEat,
+                new BlockTicker() {
+                    @Override
+                    public boolean isSynchronized() {
+                        return false;
+                    }
 
-                @Override
-                public void tick(Block block, SlimefunItem slimefunItem, Config config) {
-                    final Location location = block.getLocation().clone().add(0.5, 0.5, 0.5);
-                    final Particle.DustOptions dustOptions = new Particle.DustOptions(Color.PURPLE, 1f);
-                    ParticleUtils.randomSpread(location, 1, 4, dustOptions);
+                    @Override
+                    public void tick(Block block, SlimefunItem slimefunItem, Config config) {
+                        final Location location = block.getLocation().clone().add(0.5, 0.5, 0.5);
+                        final Particle.DustOptions dustOptions = new Particle.DustOptions(Color.PURPLE, 1f);
+                        ParticleUtils.randomSpread(location, 1, 4, dustOptions);
+                    }
                 }
-            }
         );
     }
 
@@ -69,8 +64,8 @@ public class EnderCake extends SlimefunItem {
         if (block.getType() == Material.CAKE) {
             final Optional<SlimefunItem> slimefunItem = event.getSlimefunBlock();
             if (slimefunItem.isPresent()
-                && slimefunItem.get().getId().equals(Stacks.ENDER_CAKE.getItemId())
-                && Bukkit.getAllowEnd()
+                    && slimefunItem.get().getId().equals(Stacks.ENDER_CAKE.getItemId())
+                    && Bukkit.getAllowEnd()
             ) {
                 final World end = Bukkit.getWorlds().get(2);
                 final Location location = player.getLocation();

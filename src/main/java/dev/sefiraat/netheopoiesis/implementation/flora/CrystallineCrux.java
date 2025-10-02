@@ -34,18 +34,18 @@ public class CrystallineCrux extends NetherCrux {
     public static final int STEPS = 15;
 
     private static final Set<Material> VALID_MATERIALS = Set.of(
-        Material.LAVA,
-        Material.COBBLESTONE,
-        Material.OBSIDIAN,
-        Material.STONE
+            Material.LAVA,
+            Material.COBBLESTONE,
+            Material.OBSIDIAN,
+            Material.STONE
     );
 
     private static final Set<BlockFace> VALID_FACES = Set.of(
-        BlockFace.DOWN,
-        BlockFace.NORTH,
-        BlockFace.SOUTH,
-        BlockFace.EAST,
-        BlockFace.WEST
+            BlockFace.DOWN,
+            BlockFace.NORTH,
+            BlockFace.SOUTH,
+            BlockFace.EAST,
+            BlockFace.WEST
     );
 
     public CrystallineCrux(@Nonnull ItemGroup itemGroup, @Nonnull SlimefunItemStack item, int purificationValue) {
@@ -55,32 +55,32 @@ public class CrystallineCrux extends NetherCrux {
     @Override
     public void preRegister() {
         addItemHandler(
-            new BlockBreakHandler(false, true) {
-                @Override
-                @ParametersAreNonnullByDefault
-                public void onPlayerBreak(BlockBreakEvent event, ItemStack item, List<ItemStack> drops) {
-                    // We do not want crux' to be able to drop and placed elsewhere thus gaming the system
-                    final Block block = event.getBlock();
-                    final ItemStack heldItem = event.getPlayer().getInventory().getItemInMainHand();
-                    if (SlimefunItem.getByItem(heldItem).getId().equals(Stacks.CRUX_GATHERER.getItemId())) {
-                        event.setCancelled(true);
-                        block.setType(Material.AIR);
+                new BlockBreakHandler(false, true) {
+                    @Override
+                    @ParametersAreNonnullByDefault
+                    public void onPlayerBreak(BlockBreakEvent event, ItemStack item, List<ItemStack> drops) {
+                        // We do not want crux' to be able to drop and placed elsewhere thus gaming the system
+                        final Block block = event.getBlock();
+                        final ItemStack heldItem = event.getPlayer().getInventory().getItemInMainHand();
+                        if (SlimefunItem.getByItem(heldItem).getId().equals(Stacks.CRUX_GATHERER.getItemId())) {
+                            event.setCancelled(true);
+                            block.setType(Material.AIR);
+                        }
+                        BlockStorage.clearBlockInfo(block);
+                        removePurificationRegistry(block);
                     }
-                    BlockStorage.clearBlockInfo(block);
-                    removePurificationRegistry(block);
-                }
-            },
-            new BlockTicker() {
-                @Override
-                public boolean isSynchronized() {
-                    return true;
-                }
+                },
+                new BlockTicker() {
+                    @Override
+                    public boolean isSynchronized() {
+                        return true;
+                    }
 
-                @Override
-                public void tick(Block block, SlimefunItem item, Config data) {
-                    onTick(block);
+                    @Override
+                    public void tick(Block block, SlimefunItem item, Config data) {
+                        onTick(block);
+                    }
                 }
-            }
         );
     }
 
@@ -108,9 +108,9 @@ public class CrystallineCrux extends NetherCrux {
                     Purification.removeValue(testBlock);
                     // Schedule a task to ensure the new block storage happens only AFTER deletion
                     final UpdateCruxTask task = new UpdateCruxTask(
-                        testBlock,
-                        Stacks.CRYSTALLINE_CRUX,
-                        stepsLeft - 1
+                            testBlock,
+                            Stacks.CRYSTALLINE_CRUX,
+                            stepsLeft - 1
                     );
                     task.runTaskTimer(Netheopoiesis.getInstance(), 1, 20);
                 }

@@ -21,7 +21,7 @@ public class NetherRoofListener implements Listener {
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
     public void onBlockLands(@Nonnull EntityChangeBlockEvent event) {
         if (event.getEntity() instanceof FallingBlock fallingBlock
-            && PersistentDataAPI.getBoolean(fallingBlock, Keys.MANAGED_FALLING_BLOCK)
+                && PersistentDataAPI.getBoolean(fallingBlock, Keys.MANAGED_FALLING_BLOCK)
         ) {
             event.setCancelled(true);
         }

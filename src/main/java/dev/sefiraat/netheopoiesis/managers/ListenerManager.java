@@ -2,18 +2,7 @@ package dev.sefiraat.netheopoiesis.managers;
 
 import com.google.common.base.Preconditions;
 import dev.sefiraat.netheopoiesis.Netheopoiesis;
-import dev.sefiraat.netheopoiesis.listeners.BlockProtectionListener;
-import dev.sefiraat.netheopoiesis.listeners.CrushingListener;
-import dev.sefiraat.netheopoiesis.listeners.CrystallineSeedListener;
-import dev.sefiraat.netheopoiesis.listeners.DropListener;
-import dev.sefiraat.netheopoiesis.listeners.FriendlyMobsListener;
-import dev.sefiraat.netheopoiesis.listeners.ManagedMobListener;
-import dev.sefiraat.netheopoiesis.listeners.MobSpawnListener;
-import dev.sefiraat.netheopoiesis.listeners.NetherRoofListener;
-import dev.sefiraat.netheopoiesis.listeners.PlayerSleepListener;
-import dev.sefiraat.netheopoiesis.listeners.CustomPlacementListener;
-import dev.sefiraat.netheopoiesis.listeners.WanderingPiglinListener;
-import dev.sefiraat.netheopoiesis.listeners.WaterPlaceListener;
+import dev.sefiraat.netheopoiesis.listeners.*;
 import org.bukkit.event.Listener;
 
 import javax.annotation.Nonnull;
@@ -42,11 +31,11 @@ public class ListenerManager {
         addListener(new NetherRoofListener());
     }
 
-    private void addListener(@Nonnull Listener listener) {
-        Netheopoiesis.getPluginManager().registerEvents(listener, Netheopoiesis.getInstance());
-    }
-
     public static ListenerManager getInstance() {
         return instance;
+    }
+
+    private void addListener(@Nonnull Listener listener) {
+        Netheopoiesis.getPluginManager().registerEvents(listener, Netheopoiesis.getInstance());
     }
 }

@@ -37,6 +37,10 @@ public class TaskManager {
         wanderingPiglinTask.runTaskTimer(plugin, 0, 20);
     }
 
+    public static TaskManager getInstance() {
+        return instance;
+    }
+
     public PurificationEffectsTask getRegenerationRunnable() {
         return regenerationRunnable;
     }
@@ -47,9 +51,5 @@ public class TaskManager {
 
     public SaveConfigTask getSaveConfigRunnable() {
         return saveConfigRunnable;
-    }
-
-    public static TaskManager getInstance() {
-        return instance;
     }
 }

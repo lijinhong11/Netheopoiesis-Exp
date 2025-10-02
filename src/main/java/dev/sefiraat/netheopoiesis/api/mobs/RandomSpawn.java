@@ -200,10 +200,10 @@ public class RandomSpawn {
             final double random = ThreadLocalRandom.current().nextDouble();
             if (random <= this.chance && this.predicate.test(location) && hasEnoughSpace(location)) {
                 final LivingEntity livingEntity = MobManager.getInstance().spawnMob(
-                    mobCapType,
-                    type,
-                    location,
-                    randomize
+                        mobCapType,
+                        type,
+                        location,
+                        randomize
                 );
 
                 if (livingEntity != null) {

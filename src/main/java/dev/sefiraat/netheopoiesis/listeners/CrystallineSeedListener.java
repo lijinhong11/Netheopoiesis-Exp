@@ -28,8 +28,8 @@ public class CrystallineSeedListener implements Listener {
         final Entity entity = event.getEntity();
 
         if (!(entity instanceof Item item)
-            || event.getCause() != EntityDamageEvent.DamageCause.LAVA
-            || !WorldUtils.inNether(entity)
+                || event.getCause() != EntityDamageEvent.DamageCause.LAVA
+                || !WorldUtils.inNether(entity)
         ) {
             return;
         }

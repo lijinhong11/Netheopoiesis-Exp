@@ -22,10 +22,10 @@ public final class DispatchManager extends PaperCommandManager {
         registerCommand(new NetheoCommands());
 
         getCommandCompletions().registerCompletion(
-            "MOB_CAPS",
-            context -> Arrays.stream(MobCapType.values())
-                             .map(Enum::name)
-                             .collect(Collectors.toSet())
+                "MOB_CAPS",
+                context -> Arrays.stream(MobCapType.values())
+                        .map(Enum::name)
+                        .collect(Collectors.toSet())
         );
     }
 }

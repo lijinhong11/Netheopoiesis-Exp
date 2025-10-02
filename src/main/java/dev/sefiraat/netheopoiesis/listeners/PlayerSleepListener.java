@@ -3,7 +3,6 @@ package dev.sefiraat.netheopoiesis.listeners;
 import dev.sefiraat.netheopoiesis.Purification;
 import dev.sefiraat.netheopoiesis.utils.TimePeriod;
 import dev.sefiraat.netheopoiesis.utils.WorldUtils;
-import io.github.thebusybiscuit.slimefun4.utils.tags.SlimefunTag;
 import org.bukkit.ChatColor;
 import org.bukkit.Tag;
 import org.bukkit.World;
@@ -45,8 +44,8 @@ public class PlayerSleepListener implements Listener {
     @ParametersAreNonnullByDefault
     private boolean validSleepEvent(Action action, World world, Block block) {
         return action == Action.RIGHT_CLICK_BLOCK
-            && WorldUtils.inNether(world)
-            && Tag.BEDS.isTagged(block.getType())
-            && Purification.getValue(block.getChunk()) >= 250;
+                && WorldUtils.inNether(world)
+                && Tag.BEDS.isTagged(block.getType())
+                && Purification.getValue(block.getChunk()) >= 250;
     }
 }

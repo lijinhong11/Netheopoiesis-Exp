@@ -29,7 +29,7 @@ public class WaterPlaceListener implements Listener {
 
     public boolean isAllowedToPlaceWater(@Nonnull PlayerInteractEvent event) {
         return WorldUtils.inNether(event.getPlayer().getWorld())
-            && Purification.getValue(event.getClickedBlock().getChunk()) >= Purification.PLACE_WATER;
+                && Purification.getValue(event.getClickedBlock().getChunk()) >= Purification.PLACE_WATER;
     }
 
     @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
@@ -37,16 +37,16 @@ public class WaterPlaceListener implements Listener {
         final Player player = event.getPlayer();
         final Block clickedBlock = event.getClickedBlock();
         if (clickedBlock != null
-            && event.getItem() != null
-            && player.getInventory().getItemInMainHand().getType() == Material.WATER_BUCKET
-            && isAllowedToPlaceWater(event)
-            && isValidClick(event)
+                && event.getItem() != null
+                && player.getInventory().getItemInMainHand().getType() == Material.WATER_BUCKET
+                && isAllowedToPlaceWater(event)
+                && isValidClick(event)
         ) {
             event.setCancelled(true);
             final BlockData blockData = clickedBlock.getBlockData();
             if (blockData instanceof Waterlogged block
-                && !block.isWaterlogged()
-                && !player.isSneaking()
+                    && !block.isWaterlogged()
+                    && !player.isSneaking()
             ) {
                 block.setWaterlogged(true);
             } else {

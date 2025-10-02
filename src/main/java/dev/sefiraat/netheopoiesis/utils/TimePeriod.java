@@ -38,14 +38,6 @@ public enum TimePeriod {
         this.end = end;
     }
 
-    public long getStart() {
-        return start;
-    }
-
-    public long getEnd() {
-        return end;
-    }
-
     @Nonnull
     public static TimePeriod[] getCachedValues() {
         return CACHED_VALUES;
@@ -136,14 +128,14 @@ public enum TimePeriod {
     public static boolean naturalMobsCanSpawn(@Nonnull World world) {
         long time = world.getTime();
         return world.isClearWeather()
-               ? naturalMobsCanSpawn(time, false)
-               : naturalMobsCanSpawn(time, true);
+                ? naturalMobsCanSpawn(time, false)
+                : naturalMobsCanSpawn(time, true);
     }
 
     public static boolean naturalMobsCanSpawn(long time, boolean rain) {
         return rain
-               ? time >= MOB_SPAWN_RAIN.getStart() && time <= MOB_SPAWN_RAIN.getEnd()
-               : time >= MOB_SPAWN_CLEAR.getStart() && time <= MOB_SPAWN_CLEAR.getEnd();
+                ? time >= MOB_SPAWN_RAIN.getStart() && time <= MOB_SPAWN_RAIN.getEnd()
+                : time >= MOB_SPAWN_CLEAR.getStart() && time <= MOB_SPAWN_CLEAR.getEnd();
     }
 
     /**
@@ -167,5 +159,13 @@ public enum TimePeriod {
             return isDay(world.getTime());
         }
         return false;
+    }
+
+    public long getStart() {
+        return start;
+    }
+
+    public long getEnd() {
+        return end;
     }
 }

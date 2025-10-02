@@ -22,8 +22,8 @@ import java.util.concurrent.ThreadLocalRandom;
 public class FriendlyMobsListener implements Listener {
 
     public static final Map<EntityType, Integer> TYPES = Map.of(
-        EntityType.PIGLIN, Purification.FRIENDLY_PIGLINS,
-        EntityType.HOGLIN, Purification.FRIENDLY_HOGLINS
+            EntityType.PIGLIN, Purification.FRIENDLY_PIGLINS,
+            EntityType.HOGLIN, Purification.FRIENDLY_HOGLINS
     );
 
     @EventHandler

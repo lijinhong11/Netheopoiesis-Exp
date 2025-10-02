@@ -1,13 +1,7 @@
 package dev.sefiraat.netheopoiesis;
 
 import com.google.common.base.Preconditions;
-import dev.sefiraat.netheopoiesis.api.items.BiomeSpreadingSeed;
-import dev.sefiraat.netheopoiesis.api.items.CruxSpreadingSeed;
-import dev.sefiraat.netheopoiesis.api.items.DroppingSeed;
-import dev.sefiraat.netheopoiesis.api.items.EntitySpawningSeed;
-import dev.sefiraat.netheopoiesis.api.items.GenericTickingSeed;
-import dev.sefiraat.netheopoiesis.api.items.HarvestableSeed;
-import dev.sefiraat.netheopoiesis.api.items.NetherSeed;
+import dev.sefiraat.netheopoiesis.api.items.*;
 import dev.sefiraat.netheopoiesis.api.plant.breeding.BreedResult;
 import dev.sefiraat.netheopoiesis.api.plant.breeding.BreedResultType;
 import dev.sefiraat.netheopoiesis.api.plant.breeding.BreedingPair;
@@ -41,6 +35,10 @@ public class Registry {
     public Registry() {
         Preconditions.checkArgument(instance == null, "Cannot create a new instance of the Registry");
         instance = this;
+    }
+
+    public static Registry getInstance() {
+        return instance;
     }
 
     public void addPlant(@Nonnull NetherSeed netherSeed) {
@@ -91,8 +89,8 @@ public class Registry {
         String template = null;
         try {
             template = new String(
-                Netheopoiesis.getInstance().getResource("gitbook-template.md").readAllBytes(),
-                StandardCharsets.UTF_8
+                    Netheopoiesis.getInstance().getResource("gitbook-template.md").readAllBytes(),
+                    StandardCharsets.UTF_8
             );
         } catch (IOException exception) {
             exception.printStackTrace();
@@ -110,8 +108,8 @@ public class Registry {
 
             for (String s : seed.getPlacements()) {
                 places.append("- ")
-                      .append(TextUtils.toTitleCase(ChatColor.stripColor(s.replace("NPS_", ""))))
-                      .append("\n");
+                        .append(TextUtils.toTitleCase(ChatColor.stripColor(s.replace("NPS_", ""))))
+                        .append("\n");
             }
 
             String output = template;
@@ -129,8 +127,8 @@ public class Registry {
             if (seed instanceof HarvestableSeed harvestable) {
                 final ItemStack itemStack = harvestable.getHarvestingResult();
                 final String itemName = itemStack.getItemMeta().hasDisplayName() ?
-                                        ChatColor.stripColor(itemStack.getItemMeta().getDisplayName()) :
-                                        TextUtils.toTitleCase(itemStack.getType().name());
+                        ChatColor.stripColor(itemStack.getItemMeta().getDisplayName()) :
+                        TextUtils.toTitleCase(itemStack.getType().name());
                 output = output.replace("{TYPE_FEATURE}", "Harvesting Tool Output");
                 output = output.replace("{TYPE_DESC}", "When harvested, this plant will drop: " + itemName);
             } else if (seed instanceof GenericTickingSeed ticking) {
@@ -144,11 +142,11 @@ public class Registry {
 
                 dropping.getPossibleDrops().forEach(itemStack -> {
                     final String itemName = itemStack.getItemMeta().hasDisplayName() ?
-                                            ChatColor.stripColor(itemStack.getItemMeta().getDisplayName()) :
-                                            TextUtils.toTitleCase(itemStack.getType().name());
+                            ChatColor.stripColor(itemStack.getItemMeta().getDisplayName()) :
+                            TextUtils.toTitleCase(itemStack.getType().name());
                     drops.append("- ")
-                         .append(itemName)
-                         .append("\n");
+                            .append(itemName)
+                            .append("\n");
                 });
 
                 output = output.replace("{TYPE_FEATURE}", "Drops Items");
@@ -156,29 +154,25 @@ public class Registry {
             } else if (seed instanceof CruxSpreadingSeed spreading) {
                 String additional = "";
                 if (spreading instanceof BiomeSpreadingSeed biome) {
-                    additional = " and changes the Biome to: " + biome.getBiome().getKey().toString();
+                    additional = " and changes the Biome to: " + biome.getBiome().getKey();
                 }
                 output = output.replace("{TYPE_FEATURE}", "Purification");
                 output = output.replace(
-                    "{TYPE_DESC}",
-                    "Purifies nearby blocks into: " +
-                        ChatColor.stripColor(spreading.getCrux().getDisplayName()) + additional
+                        "{TYPE_DESC}",
+                        "Purifies nearby blocks into: " +
+                                ChatColor.stripColor(spreading.getCrux().getDisplayName()) + additional
                 );
             }
 
             String fileName = ChatColor.stripColor(seed.getItemName()).toLowerCase(Locale.ROOT).replace(" ", "-");
 
             try (BufferedWriter writer = new BufferedWriter(
-                new FileWriter(path + "/" + fileName + ".md"))
+                    new FileWriter(path + "/" + fileName + ".md"))
             ) {
                 writer.write(output);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-    }
-
-    public static Registry getInstance() {
-        return instance;
     }
 }
