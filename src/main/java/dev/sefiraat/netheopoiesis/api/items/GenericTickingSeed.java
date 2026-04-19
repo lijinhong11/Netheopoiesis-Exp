@@ -1,10 +1,10 @@
 package dev.sefiraat.netheopoiesis.api.items;
 
 import com.google.common.base.Preconditions;
+import com.xzavier0722.mc.plugin.slimefun4.storage.controller.SlimefunBlockData;
 import dev.sefiraat.netheopoiesis.Netheopoiesis;
 import dev.sefiraat.netheopoiesis.implementation.GenericTickingMethods;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
-import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import org.bukkit.Location;
 
 import javax.annotation.Nonnull;
@@ -29,7 +29,7 @@ public class GenericTickingSeed extends NetherSeed {
 
     @Override
     @ParametersAreNonnullByDefault
-    public void onTickFullyGrown(Location location, NetherSeed seed, Config data) {
+    public void onTickFullyGrown(Location location, NetherSeed seed, SlimefunBlockData data) {
         final GenericTickingMethods.TickParameters tickParameters = new GenericTickingMethods.TickParameters(
                 location,
                 seed,

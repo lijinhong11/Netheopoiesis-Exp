@@ -1,5 +1,6 @@
 package dev.sefiraat.netheopoiesis.api.items;
 
+import com.xzavier0722.mc.plugin.slimefun4.storage.controller.SlimefunBlockData;
 import dev.sefiraat.netheopoiesis.api.RecipeTypes;
 import dev.sefiraat.netheopoiesis.api.interfaces.PurifyingObject;
 import dev.sefiraat.netheopoiesis.api.plant.Placements;
@@ -8,7 +9,6 @@ import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.core.handlers.BlockBreakHandler;
-import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import me.mrCookieSlime.Slimefun.Objects.handlers.BlockTicker;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import org.bukkit.Material;
@@ -65,7 +65,7 @@ public class NetherCrux extends SlimefunItem implements PurifyingObject {
                     }
 
                     @Override
-                    public void tick(Block block, SlimefunItem item, Config data) {
+                    public void tick(Block block, SlimefunItem item, SlimefunBlockData data) {
                         if (NetherCrux.this.tick >= TICKS_REQUIRED) {
                             registerPurificationValue(block);
                         }

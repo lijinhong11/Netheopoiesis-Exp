@@ -1,5 +1,6 @@
 package dev.sefiraat.netheopoiesis.implementation.flora;
 
+import com.xzavier0722.mc.plugin.slimefun4.storage.controller.SlimefunBlockData;
 import dev.sefiraat.netheopoiesis.Netheopoiesis;
 import dev.sefiraat.netheopoiesis.Purification;
 import dev.sefiraat.netheopoiesis.api.RecipeTypes;
@@ -52,7 +53,7 @@ public class PurificationSeed extends NetherSeed {
 
     @Override
     @ParametersAreNonnullByDefault
-    public void onTickFullyGrown(Location location, NetherSeed seed, Config data) {
+    public void onTickFullyGrown(Location location, NetherSeed seed, SlimefunBlockData data) {
         double randomChance = ThreadLocalRandom.current().nextDouble();
 
         if (randomChance > 0.25) {

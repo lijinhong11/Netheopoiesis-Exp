@@ -1,6 +1,7 @@
 package dev.sefiraat.netheopoiesis.api.items;
 
 import com.google.common.base.Preconditions;
+import com.xzavier0722.mc.plugin.slimefun4.storage.controller.SlimefunBlockData;
 import dev.sefiraat.netheopoiesis.Purification;
 import dev.sefiraat.netheopoiesis.api.interfaces.CustomPlacementBlock;
 import dev.sefiraat.netheopoiesis.api.interfaces.PurificationDrain;
@@ -13,7 +14,6 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.handlers.BlockBreakHandler;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.blocks.BlockPosition;
-import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import me.mrCookieSlime.Slimefun.Objects.handlers.BlockTicker;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
@@ -87,7 +87,7 @@ public class BeaconSiphoningBlock extends SlimefunItem implements PurificationDr
                     }
 
                     @Override
-                    public void tick(Block block, SlimefunItem item, Config data) {
+                    public void tick(Block block, SlimefunItem item, SlimefunBlockData data) {
                         onTick(block, item, data);
                     }
 
@@ -107,7 +107,7 @@ public class BeaconSiphoningBlock extends SlimefunItem implements PurificationDr
 
     @ParametersAreNonnullByDefault
     @OverridingMethodsMustInvokeSuper
-    protected boolean onTick(Block block, SlimefunItem item, Config data) {
+    protected boolean onTick(Block block, SlimefunItem item, SlimefunBlockData data) {
 
         // We do not want to operate every single tick
         if (currentTick != TICKS_PER_OPERATION) {

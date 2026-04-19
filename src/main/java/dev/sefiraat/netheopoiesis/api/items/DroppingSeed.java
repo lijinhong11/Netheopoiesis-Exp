@@ -1,5 +1,6 @@
 package dev.sefiraat.netheopoiesis.api.items;
 
+import com.xzavier0722.mc.plugin.slimefun4.storage.controller.SlimefunBlockData;
 import dev.sefiraat.netheopoiesis.Netheopoiesis;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.collections.RandomizedSet;
@@ -33,7 +34,7 @@ public class DroppingSeed extends NetherSeed {
 
     @Override
     @ParametersAreNonnullByDefault
-    public void onTickFullyGrown(Location location, NetherSeed seed, Config data) {
+    public void onTickFullyGrown(Location location, NetherSeed seed, SlimefunBlockData data) {
         double randomChance = ThreadLocalRandom.current().nextDouble();
         if (randomChance <= chance) {
             location.getWorld().dropItem(location, this.stacksToDrop.getRandom());

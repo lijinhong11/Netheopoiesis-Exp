@@ -1,5 +1,6 @@
 package dev.sefiraat.netheopoiesis.implementation;
 
+import com.xzavier0722.mc.plugin.slimefun4.storage.controller.SlimefunBlockData;
 import dev.sefiraat.netheopoiesis.api.items.GenericTickingSeed;
 import dev.sefiraat.netheopoiesis.api.items.NetherCrux;
 import dev.sefiraat.netheopoiesis.api.items.NetherSeed;
@@ -195,7 +196,7 @@ public final class GenericTickingMethods {
         }
     }
 
-    public record TickParameters(Location location, NetherSeed seed, Config data) {
+    public record TickParameters(Location location, NetherSeed seed, SlimefunBlockData data) {
         @ParametersAreNonnullByDefault
         public TickParameters {
         }

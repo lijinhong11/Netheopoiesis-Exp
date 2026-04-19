@@ -1,5 +1,6 @@
 package dev.sefiraat.netheopoiesis.implementation.blocks;
 
+import com.xzavier0722.mc.plugin.slimefun4.storage.controller.SlimefunBlockData;
 import dev.sefiraat.netheopoiesis.api.items.BeaconSiphoningBlock;
 import dev.sefiraat.netheopoiesis.utils.Keys;
 import dev.sefiraat.netheopoiesis.utils.ParticleUtils;
@@ -10,7 +11,6 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.data.persistent.PersistentDataAPI;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
-import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -40,7 +40,7 @@ public class NetherBeacon extends BeaconSiphoningBlock {
 
     @Override
     @ParametersAreNonnullByDefault
-    protected boolean onTick(Block block, SlimefunItem item, Config data) {
+    protected boolean onTick(Block block, SlimefunItem item, SlimefunBlockData data) {
         // Call super to ensure the tick is valid
         if (!super.onTick(block, item, data)) {
             return false;

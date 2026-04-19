@@ -1,5 +1,6 @@
 package dev.sefiraat.netheopoiesis.implementation.tools;
 
+import com.xzavier0722.mc.plugin.slimefun4.storage.controller.SlimefunBlockData;
 import dev.sefiraat.netheopoiesis.Purification;
 import dev.sefiraat.netheopoiesis.implementation.Stacks;
 import dev.sefiraat.netheopoiesis.utils.ParticleUtils;
@@ -10,7 +11,6 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.handlers.BlockUseHandler;
-import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import me.mrCookieSlime.Slimefun.Objects.handlers.BlockTicker;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import org.bukkit.*;
@@ -43,7 +43,7 @@ public class EnderCake extends SlimefunItem {
                     }
 
                     @Override
-                    public void tick(Block block, SlimefunItem slimefunItem, Config config) {
+                    public void tick(Block block, SlimefunItem slimefunItem, SlimefunBlockData config) {
                         final Location location = block.getLocation().clone().add(0.5, 0.5, 0.5);
                         final Particle.DustOptions dustOptions = new Particle.DustOptions(Color.PURPLE, 1f);
                         ParticleUtils.randomSpread(location, 1, 4, dustOptions);

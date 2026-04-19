@@ -1,6 +1,7 @@
 package dev.sefiraat.netheopoiesis.api.items;
 
 import com.google.common.base.Preconditions;
+import com.xzavier0722.mc.plugin.slimefun4.storage.controller.SlimefunBlockData;
 import dev.sefiraat.netheopoiesis.Netheopoiesis;
 import dev.sefiraat.netheopoiesis.Purification;
 import dev.sefiraat.netheopoiesis.api.events.CruxSpreadEvent;
@@ -10,7 +11,6 @@ import dev.sefiraat.netheopoiesis.utils.ProtectionUtils;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
-import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -37,13 +37,13 @@ public class CruxSpreadingSeed extends NetherSeed implements SpreadingPlant {
 
     @Override
     @ParametersAreNonnullByDefault
-    public void onTickFullyGrown(Location location, NetherSeed seed, Config data) {
+    public void onTickFullyGrown(Location location, NetherSeed seed, SlimefunBlockData data) {
         spread(location, seed, data);
     }
 
     @Override
     @ParametersAreNonnullByDefault
-    public void spread(Location sourceLocation, NetherSeed seed, Config data) {
+    public void spread(Location sourceLocation, NetherSeed seed, SlimefunBlockData data) {
         double randomChance = ThreadLocalRandom.current().nextDouble();
 
         if (randomChance <= (this.spreadChance * Netheopoiesis.CRUX_SPREAD_MULTIPLIER)) {
