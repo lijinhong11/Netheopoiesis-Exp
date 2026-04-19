@@ -5,7 +5,7 @@
 # Netheopoiesis
 [Donate](patreon.com/mmmjjkx)
 
-Netheopoiesis is our entry to the Slimefun Addon Jam 2022. Created by Sefiraat and J3fftw
+Netheopoiesis is our entry to the Slimefun Addon Jam 2022. Created by Sefiraat and J3fftw  
 Carried to 1.21+ by mmmjjkx
 
 This addon has three main aims:
